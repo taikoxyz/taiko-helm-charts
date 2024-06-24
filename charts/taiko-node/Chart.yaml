@@ -1,0 +1,13 @@
+apiVersion: v2
+name: taiko-node
+description: This is an umbrella chart for running a full Taiko node (taiko-geth + taiko-client).
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: taiko-geth
+    version: "0.1.0"
+    repository: "file://../taiko-geth"
+  - name: taiko-client
+    version: "0.1.0"
+    repository: "file://../taiko-client"
