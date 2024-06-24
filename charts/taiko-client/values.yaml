@@ -16,6 +16,11 @@ global:
     limits:
       cpu: 1000m
       memory: 500Mi
+  # WARN: do not commit these values, using external secrets is recommended
+  secret:
+    jwt:
+    proposerPrivateKey:
+    proverPrivateKey:
   defaultClientArgs:
     - --l1.ws={{ .Values.global.l1Ws }}
     - --taikoL1={{ (index .Values .Values.global.network).l1ContractAddresses.taikoL1 }}
