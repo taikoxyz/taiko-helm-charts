@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ include "taiko-client.fullname" . }}
   labels:
@@ -7,9 +7,7 @@ metadata:
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
-  serviceName: taiko-client
   replicas: {{ .Values.replicaCount }}
-  podManagementPolicy: Parallel
   selector:
     matchLabels:
       {{- include "taiko-client.selectorLabels" . | nindent 6 }}
@@ -22,9 +20,25 @@ spec:
       - name: jwtsecret
         secret:
           secretName: {{ include "taiko-client.fullname" . }}-jwt
+      {{- if eq .Values.global.mode "proposer" }}
+      env:
+        - name: PROPOSER_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "taiko-client.fullname" . }}-proposer-private-key
+              key: default
+      {{- end }}
+      {{- if or (eq .Values.global.mode "prover") (eq .Values.global.mode "guardian") }}
+      env:
+        - name: PROVER_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "taiko-client.fullname" . }}-prover-private-key
+              key: default
+      {{- end }}
       containers:
       - name: {{ printf "taiko-client-%s" .Values.global.mode }}
-        image: "us-docker.pkg.dev/evmchain/{{ with (index .Values .Values.global.network) }}{{ .image.repo }}/taiko-client:{{ .image.tag }}{{ end }}"
+        image: "{{ with (index .Values .Values.global.network) }}{{ .image.repo }}:{{ .image.tag }}{{ end }}"
         volumeMounts:
           - name: jwtsecret
             mountPath: /jwtsecret
@@ -38,14 +52,6 @@ spec:
           {{- range $arg := .Values.global.defaultClientArgs }}
           - {{ tpl $arg $ }}
           {{- end }}
-        {{- if eq .Values.global.mode "guardian" }}
-        env:
-          - name: PRIVATE_KEY
-            valueFrom:
-              secretKeyRef:
-                name: guardian-prover-private-key
-                key: default
-        {{- end }}
         resources:
           requests:
             cpu: {{ .Values.global.resources.requests.cpu }}

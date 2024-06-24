@@ -2,8 +2,7 @@ replicaCount: 1
 
 global:
   network: hekla # options: [hekla, mainnet]
-  jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a # change this value
-  mode: prover # options: [driver, proposer, prover, guardian]
+  mode: driver # options: [driver, proposer, prover, guardian]
   l1Http: "http://ethereum-node-holesky-execution:8545"
   l1Ws: "ws://ethereum-node-holesky-execution:8545"
   l1Beacon: "http://ethereum-node-holesky-beacon:5052"
@@ -39,7 +38,7 @@ proposer:
     - --l2.http={{ .Values.global.l2Http }}
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
     - --assignmentHookAddress={{ (index .Values .Values.global.network).l1ContractAddresses.assignmentHook }}
-    - --l1.proposerPrivKey={{ (index .Values .Values.global.network).proposer.proposerPrivateKey }}
+    - --l1.proposerPrivKey=$(PROPOSER_PRIVATE_KEY)
     - --l2.suggestedFeeRecipient={{ (index .Values .Values.global.network).proposer.suggestedFeeRecipient }}
     - --proverEndpoints={{ (index .Values .Values.global.network).proposer.proverEndpoints }}
     - --tierFee.optimistic={{ (index .Values .Values.global.network).proposer.blockProposalFeeGwei }}
@@ -53,7 +52,7 @@ prover:
     - --l1.http={{ .Values.global.l1Http }}
     - --l2.ws={{ .Values.global.l2Ws }}
     - --l2.http={{ .Values.global.l2Http }}
-    - --l1.proverPrivKey={{ (index .Values .Values.global.network).prover.proverPrivateKey }}
+    - --l1.proverPrivKey=$(PROVER_PRIVATE_KEY)
     - --prover.capacity={{ (index .Values .Values.global.network).prover.capacity }}
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
     - --raiko.host={{ (index .Values .Values.global.network).prover.raikoHost }}
@@ -65,7 +64,7 @@ guardian:
     - --l1.http={{ .Values.global.l1Http }}
     - --l2.http={{ .Values.global.l2Http }}
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
-    - --l1.proverPrivKey=$(PRIVATE_KEY)
+    - --l1.proverPrivKey=$(PROVER_PRIVATE_KEY)
     - --prover.guardianProverHealthCheckServerEndpoint={{ (index .Values .Values.global.network).guardian.healthCheckserver }}
     - --guardianProverMinority={{ (index .Values .Values.global.network).l1ContractAddresses.guardianProverMinority }}
     - --guardianProverMajority={{ (index .Values .Values.global.network).l1ContractAddresses.guardianProverMajority }}
@@ -78,7 +77,7 @@ guardian:
 
 hekla:
   image:
-    repo: hekla
+    repo: us-docker.pkg.dev/evmchain/hekla/taiko-client
     tag: hekla
   l1ContractAddresses:
     taikoL1: "0x79C9109b764609df928d16fC4a91e9081F7e87DB"
@@ -90,13 +89,11 @@ hekla:
     taikoL2: "0x1670090000000000000000000000000000010001"
   checkpointUrl: "https://rpc.hekla.taiko.xyz"
   proposer:
-    proposerPrivateKey:  # TODO: move to kubernetes secret
     suggestedFeeRecipient: 0x1509F09637A1fB8C3e47e099d50514b9D9Af8157
-    proverEndpoints: http://taiko-client-prover-test:9876
-    blockProposalFeeGwei: 1 # 1_000_000_000 wei
+    proverEndpoints: http://taiko-client-prover:9876
+    blockProposalFeeGwei: 1
   prover:
     capacity: 1024
-    proverPrivateKey: 
     raikoHost: ""
   guardian:
     healthCheckServer: https://guardian-prover-health-check.hekla.taiko.xyz
@@ -116,7 +113,7 @@ hekla:
 
 mainnet:
   image:
-    repo: images
+    repo: us-docker.pkg.dev/evmchain/images/taiko-client
     tag: taiko-client-v0.26.0
   l1ContractAddresses:
     taikoL1: "0x06a9Ab27c7e2255df1815E6CC0168d7755Feb19a"
