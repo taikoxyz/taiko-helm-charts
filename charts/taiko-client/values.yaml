@@ -31,7 +31,7 @@ driver:
   args:
     - driver
     - --p2p.sync
-    - --p2p.checkPointSyncUrl={{ (index .Values .Values.global.network).checkpointUrl }}
+    - --p2p.checkPointSyncUrl={{ (index .Values .Values.global.network).driver.checkpointUrl }}
     - --l1.beacon={{ .Values.global.l1Beacon }}
     - --l2.ws={{ .Values.global.l2Ws }}
     - --l2.auth={{ .Values.global.l2Auth }}
@@ -92,7 +92,8 @@ hekla:
     assignmentHook: "0x9e640a6aadf4f664CF467B795c31332f44AcBe6c"
   l2ContractAddresses:
     taikoL2: "0x1670090000000000000000000000000000010001"
-  checkpointUrl: "https://rpc.hekla.taiko.xyz"
+  driver:
+    checkpointUrl: "https://rpc.hekla.taiko.xyz"
   proposer:
     suggestedFeeRecipient: 0x1509F09637A1fB8C3e47e099d50514b9D9Af8157
     proverEndpoints: http://taiko-client-prover:9876
@@ -128,7 +129,8 @@ mainnet:
     assignmentHook: "0x537a2f0D3a5879b41BCb5A2afE2EA5c4961796F6"
   l2ContractAddresses:
     taikoL2: "0x1670000000000000000000000000000000010001"
-  checkpointUrl: "https://rpc.mainnet.taiko.xyz"
+  driver:
+    checkpointUrl: "https://rpc.mainnet.taiko.xyz"
   guardian:
     healthCheckServer: https://guardians-api.mainnet.taiko.xyz
     gasLimit: "2000000"
