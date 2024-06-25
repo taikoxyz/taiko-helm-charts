@@ -6,9 +6,9 @@ global:
   l1Http: "http://ethereum-node-holesky-execution:8545"
   l1Ws: "ws://ethereum-node-holesky-execution:8545"
   l1Beacon: "http://ethereum-node-holesky-beacon:5052"
-  l2Http: "http://taiko-geth-hekla:8545"
-  l2Ws: "ws://taiko-geth-hekla:8546"
-  l2Auth: "http://taiko-geth-hekla:8551"
+  l2Http: "http://taiko-node-taiko-geth:8545"
+  l2Ws: "ws://taiko-node-taiko-geth:8546"
+  l2Auth: "http://taiko-node-taiko-geth:8551"
   resources:
     requests:
       cpu: 1000m
@@ -25,7 +25,6 @@ global:
     - --l1.ws={{ .Values.global.l1Ws }}
     - --taikoL1={{ (index .Values .Values.global.network).l1ContractAddresses.taikoL1 }}
     - --taikoL2={{ (index .Values .Values.global.network).l2ContractAddresses.taikoL2 }}
-    - --verbosity=2
 
 driver:
   args:
@@ -42,7 +41,6 @@ proposer:
     - proposer
     - --l2.http={{ .Values.global.l2Http }}
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
-    - --assignmentHookAddress={{ (index .Values .Values.global.network).l1ContractAddresses.assignmentHook }}
     - --l1.proposerPrivKey=$(PROPOSER_PRIVATE_KEY)
     - --l2.suggestedFeeRecipient={{ (index .Values .Values.global.network).proposer.suggestedFeeRecipient }}
     - --proverEndpoints={{ (index .Values .Values.global.network).proposer.proverEndpoints }}
@@ -61,6 +59,7 @@ prover:
     - --prover.capacity={{ (index .Values .Values.global.network).prover.capacity }}
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
     - --raiko.host={{ (index .Values .Values.global.network).prover.raikoHost }}
+    - --tx.gasLimit={{ (index .Values .Values.global.network).prover.txGasLimit }}
 
 guardian:
   args:
@@ -83,7 +82,7 @@ guardian:
 hekla:
   image:
     repo: us-docker.pkg.dev/evmchain/hekla/taiko-client
-    tag: hekla
+    tag: sha-f5b09d4
   l1ContractAddresses:
     taikoL1: "0x79C9109b764609df928d16fC4a91e9081F7e87DB"
     taikoToken: "0x6490E12d480549D333499236fF2Ba6676C296011"
@@ -95,12 +94,13 @@ hekla:
   driver:
     checkpointUrl: "https://rpc.hekla.taiko.xyz"
   proposer:
-    suggestedFeeRecipient: 0x1509F09637A1fB8C3e47e099d50514b9D9Af8157
-    proverEndpoints: http://taiko-client-prover:9876
+    suggestedFeeRecipient:
+    proverEndpoints: http://taiko-client-prover.default:9876
     blockProposalFeeGwei: 1
   prover:
     capacity: 1024
     raikoHost: ""
+    txGasLimit: "3000000"
   guardian:
     healthCheckServer: https://guardian-prover-health-check.hekla.taiko.xyz
     gasLimit: "2000000"

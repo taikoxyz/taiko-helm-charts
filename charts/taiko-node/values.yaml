@@ -1,0 +1,11 @@
+global:
+  network: hekla
+
+taiko-client:
+  global:
+    network: "{{ .Values.global.network }}"
+    mode: driver
+
+taiko-geth:
+  global:
+    network: "{{ .Values.global.network }}"
