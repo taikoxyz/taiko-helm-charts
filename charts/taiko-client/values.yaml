@@ -133,6 +133,14 @@ mainnet:
     taikoL2: "0x1670000000000000000000000000000000010001"
   driver:
     checkpointUrl: "https://rpc.mainnet.taiko.xyz"
+  proposer:
+    suggestedFeeRecipient:
+    proverEndpoints: http://taiko-client-prover.default:9876
+    blockProposalFeeGwei: 1
+  prover:
+    capacity: 1024
+    raikoHost: ""
+    txGasLimit: "3000000"
   guardian:
     healthCheckServer: https://guardians-api.mainnet.taiko.xyz
     gasLimit: "2000000"
