@@ -22,7 +22,10 @@ spec:
           secretName: {{ include "taiko-client.fullname" . }}-jwt
       containers:
       - name: {{ printf "taiko-client-%s" .Values.global.mode }}
-        image: "{{ with (index .Values .Values.global.network) }}{{ .image.repo }}:{{ .image.tag }}{{ end }}"
+        {{ with (index .Values .Values.global.network) }}
+        image: "{{ .image.repository }}:{{ .image.tag }}"
+        imagePullPolicy: {{ .image.pullPolicy }}
+        {{ end }}
         {{- if eq .Values.global.mode "proposer" }}
         env:
           - name: PROPOSER_PRIVATE_KEY

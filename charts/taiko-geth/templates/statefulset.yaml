@@ -34,8 +34,10 @@ spec:
           secretName: {{ include "taiko-geth.fullname" . }}-jwt
       containers:
       - name: taiko-geth
-        image: "us-docker.pkg.dev/evmchain/{{ with (index .Values .Values.global.network) }}{{ .image.repo }}/taiko-geth:{{ .image.tag }}{{ end }}"
-        imagePullPolicy: Always
+        {{ with (index .Values .Values.global.network) }}
+        image: "{{ .image.repository }}:{{ .image.tag }}"
+        imagePullPolicy: {{ .image.pullPolicy }}
+        {{ end }}
         command:
         - /bin/sh
         - -c
