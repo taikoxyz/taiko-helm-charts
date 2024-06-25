@@ -76,7 +76,7 @@ hekla:
     checkpointUrl: "https://rpc.hekla.taiko.xyz"
   proposer:
     suggestedFeeRecipient: ""
-    proverEndpoints: http://taiko-client-prover.default:9876
+    proverEndpoints: http://taiko-client-prover:9876
     blockProposalFeeGwei: 1
   prover:
     capacity: 1024
@@ -100,7 +100,7 @@ mainnet:
     checkpointUrl: "https://rpc.mainnet.taiko.xyz"
   proposer:
     suggestedFeeRecipient: ""
-    proverEndpoints: http://taiko-client-prover.default:9876
+    proverEndpoints: http://taiko-client-prover:9876
     blockProposalFeeGwei: 1
   prover:
     capacity: 1024
