@@ -1,8 +1,8 @@
-replicaCount: 1
-
 global:
-  network: hekla # options: [hekla, mainnet]
-  mode: driver # options: [driver, proposer, prover, guardian]
+  # options: [hekla, mainnet]
+  network: hekla
+  # options: [driver, proposer, prover]
+  mode: driver
   endpoints:
     l1Http: "http://ethereum-node-holesky-execution:8545"
     l1Ws: "ws://ethereum-node-holesky-execution:8545"
@@ -13,8 +13,8 @@ global:
   # WARN: do not commit these values, using external secrets is recommended
   secret:
     jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
-    proposerPrivateKey:
-    proverPrivateKey:
+    proposerPrivateKey: ""
+    proverPrivateKey: ""
   resources:
     requests:
       cpu: 1000m
@@ -22,6 +22,7 @@ global:
     limits:
       cpu: 1000m
       memory: 500Mi
+  replicaCount: 1
 
 clientArgs:
   common:
@@ -74,7 +75,7 @@ hekla:
   driver:
     checkpointUrl: "https://rpc.hekla.taiko.xyz"
   proposer:
-    suggestedFeeRecipient:
+    suggestedFeeRecipient: ""
     proverEndpoints: http://taiko-client-prover.default:9876
     blockProposalFeeGwei: 1
   prover:
@@ -98,7 +99,7 @@ mainnet:
   driver:
     checkpointUrl: "https://rpc.mainnet.taiko.xyz"
   proposer:
-    suggestedFeeRecipient:
+    suggestedFeeRecipient: ""
     proverEndpoints: http://taiko-client-prover.default:9876
     blockProposalFeeGwei: 1
   prover:

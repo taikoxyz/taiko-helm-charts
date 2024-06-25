@@ -8,7 +8,7 @@ metadata:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
   serviceName: taiko-geth
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.global.replicaCount }}
   podManagementPolicy: Parallel
   selector:
     matchLabels:
@@ -34,10 +34,8 @@ spec:
           secretName: {{ include "taiko-geth.fullname" . }}-jwt
       containers:
       - name: taiko-geth
-        {{ with (index .Values .Values.global.network) }}
-        image: "{{ .image.repository }}:{{ .image.tag }}"
-        imagePullPolicy: {{ .image.pullPolicy }}
-        {{ end }}
+        image: "{{ (index .Values .Values.global.network).image.repository }}:{{ (index .Values .Values.global.network).image.tag }}"
+        imagePullPolicy: "{{ (index .Values .Values.global.network).image.pullPolicy }}"
         command:
         - /bin/sh
         - -c

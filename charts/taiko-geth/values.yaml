@@ -1,10 +1,15 @@
-replicaCount: 1
-
 global:
-  network: hekla # options: [hekla, mainnet]
-  storage:
-    className: local-path
-    request: 1Ti
+  # options: [hekla, mainnet]
+  network: hekla
+  ports:
+    p2pPort: 30303
+    httpPort: 8545
+    wsPort: 8546
+    authPort: 8551
+    metricsPort: 6060
+  secret:
+    # change this value
+    jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
   resources:
     requests:
       cpu: 2000m
@@ -12,14 +17,10 @@ global:
     limits:
       cpu: 2000m
       memory: 4Gi
-  secret:
-    jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a # change this value
-  ports:
-    p2pPort: 30303
-    httpPort: 8545
-    wsPort: 8546
-    authPort: 8551
-    metricsPort: 6060
+  storage:
+    className: local-path
+    request: 1Ti
+  replicaCount: 1
 
 hekla:
   image:
