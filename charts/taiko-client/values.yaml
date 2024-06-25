@@ -7,9 +7,9 @@ global:
     l1Http: "http://ethereum-node-holesky-execution:8545"
     l1Ws: "ws://ethereum-node-holesky-execution:8545"
     l1Beacon: "http://ethereum-node-holesky-beacon:5052"
-    l2Http: "http://taiko-node-taiko-geth:8545"
-    l2Ws: "ws://taiko-node-taiko-geth:8546"
-    l2Auth: "http://taiko-node-taiko-geth:8551"
+    l2Http: "http://{{ .Release.Name }}-taiko-geth:8545"
+    l2Ws: "ws://{{ .Release.Name }}-taiko-geth:8546"
+    l2Auth: "http://{{ .Release.Name }}-taiko-geth:8551"
   # WARN: do not commit these values, using external secrets is recommended
   secret:
     jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
@@ -34,25 +34,25 @@ clientArgs:
     - --p2p.sync
     - --p2p.checkPointSyncUrl={{ (index .Values .Values.global.network).driver.checkpointUrl }}
     - --l1.beacon={{ .Values.global.endpoints.l1Beacon }}
-    - --l2.ws={{ .Values.global.endpoints.l2Ws }}
-    - --l2.auth={{ .Values.global.endpoints.l2Auth }}
+    - --l2.ws={{ tpl .Values.global.endpoints.l2Ws . }}
+    - --l2.auth={{ tpl .Values.global.endpoints.l2Auth . }}
     - --jwtSecret=/jwtsecret/default
   proposer:
     - proposer
-    - --l2.http={{ .Values.global.endpoints.l2Http }}
+    - --l2.http={{ tpl .Values.global.endpoints.l2Http . }}
+    - --l2.auth={{ tpl .Values.global.endpoints.l2Auth . }}
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
     - --l1.proposerPrivKey=$(PROPOSER_PRIVATE_KEY)
     - --l2.suggestedFeeRecipient={{ (index .Values .Values.global.network).proposer.suggestedFeeRecipient }}
     - --proverEndpoints={{ (index .Values .Values.global.network).proposer.proverEndpoints }}
     - --tierFee.optimistic={{ (index .Values .Values.global.network).proposer.blockProposalFeeGwei }}
     - --tierFee.sgx={{ (index .Values .Values.global.network).proposer.blockProposalFeeGwei }}
-    - --l2.auth={{ .Values.global.endpoints.l2Auth }}
     - --jwtSecret=/jwtsecret/default
   prover:
     - prover
     - --l1.http={{ .Values.global.endpoints.l1Http }}
-    - --l2.ws={{ .Values.global.endpoints.l2Ws }}
-    - --l2.http={{ .Values.global.endpoints.l2Http }}
+    - --l2.ws={{ tpl .Values.global.endpoints.l2Ws . }}
+    - --l2.http={{ tpl .Values.global.endpoints.l2Http . }}
     - --l1.proverPrivKey=$(PROVER_PRIVATE_KEY)
     - --prover.capacity={{ (index .Values .Values.global.network).prover.capacity }}
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
