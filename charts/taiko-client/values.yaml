@@ -13,8 +13,6 @@ global:
   # WARN: do not commit these values, using external secrets is recommended
   secret:
     jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
-    proposerPrivateKey: ""
-    proverPrivateKey: ""
   resources:
     requests:
       cpu: 1000m
@@ -58,6 +56,7 @@ clientArgs:
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
     - --raiko.host={{ (index .Values .Values.global.network).prover.raikoHost }}
     - --tx.gasLimit={{ (index .Values .Values.global.network).prover.txGasLimit }}
+    - --tx.minBaseFee={{ (index .Values .Values.global.network).prover.txMinBaseFee }}
 
 hekla:
   image:
@@ -74,14 +73,6 @@ hekla:
     taikoL2: "0x1670090000000000000000000000000000010001"
   driver:
     checkpointUrl: "https://rpc.hekla.taiko.xyz"
-  proposer:
-    suggestedFeeRecipient: ""
-    proverEndpoints: http://taiko-client-prover:9876
-    blockProposalFeeGwei: 1
-  prover:
-    capacity: 1024
-    raikoHost: ""
-    txGasLimit: "3000000"
 
 mainnet:
   image:
@@ -98,11 +89,3 @@ mainnet:
     taikoL2: "0x1670000000000000000000000000000000010001"
   driver:
     checkpointUrl: "https://rpc.mainnet.taiko.xyz"
-  proposer:
-    suggestedFeeRecipient: ""
-    proverEndpoints: http://taiko-client-prover:9876
-    blockProposalFeeGwei: 1
-  prover:
-    capacity: 1024
-    raikoHost: ""
-    txGasLimit: "3000000"

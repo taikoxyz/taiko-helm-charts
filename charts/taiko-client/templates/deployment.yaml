@@ -45,8 +45,12 @@ spec:
             mountPath: /jwtsecret
             readOnly: true
         args:
+          # Go through each flag, if it ends in `=` then exclude it (default value)
           {{- range $arg := (index .Values.clientArgs .Values.global.mode) }}
-          - {{ tpl $arg $ }}
+            {{- $rendered := tpl $arg $ }}
+            {{- if not (regexMatch "^--.*=$" $rendered) }}
+          - {{ $rendered }}
+            {{- end }}
           {{- end }}
           {{- range $arg := .Values.clientArgs.common }}
           - {{ tpl $arg $ }}
