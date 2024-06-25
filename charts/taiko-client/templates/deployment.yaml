@@ -48,11 +48,11 @@ spec:
             readOnly: true
         args:
           # Args for specific mode
-          {{- range $arg := (index .Values .Values.global.mode).args }}
+          {{- range $arg := (index .Values.clientArgs .Values.global.mode) }}
           - {{ tpl $arg $ }}
           {{- end }}
           # Default args
-          {{- range $arg := .Values.global.defaultClientArgs }}
+          {{- range $arg := .Values.clientArgs.common }}
           - {{ tpl $arg $ }}
           {{- end }}
         resources:

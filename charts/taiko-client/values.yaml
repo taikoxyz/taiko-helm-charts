@@ -3,12 +3,18 @@ replicaCount: 1
 global:
   network: hekla # options: [hekla, mainnet]
   mode: driver # options: [driver, proposer, prover, guardian]
-  l1Http: "http://ethereum-node-holesky-execution:8545"
-  l1Ws: "ws://ethereum-node-holesky-execution:8545"
-  l1Beacon: "http://ethereum-node-holesky-beacon:5052"
-  l2Http: "http://taiko-node-taiko-geth:8545"
-  l2Ws: "ws://taiko-node-taiko-geth:8546"
-  l2Auth: "http://taiko-node-taiko-geth:8551"
+  endpoints:
+    l1Http: "http://ethereum-node-holesky-execution:8545"
+    l1Ws: "ws://ethereum-node-holesky-execution:8545"
+    l1Beacon: "http://ethereum-node-holesky-beacon:5052"
+    l2Http: "http://taiko-node-taiko-geth:8545"
+    l2Ws: "ws://taiko-node-taiko-geth:8546"
+    l2Auth: "http://taiko-node-taiko-geth:8551"
+  # WARN: do not commit these values, using external secrets is recommended
+  secret:
+    jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+    proposerPrivateKey:
+    proverPrivateKey:
   resources:
     requests:
       cpu: 1000m
@@ -16,68 +22,41 @@ global:
     limits:
       cpu: 1000m
       memory: 500Mi
-  # WARN: do not commit these values, using external secrets is recommended
-  secret:
-    jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
-    proposerPrivateKey:
-    proverPrivateKey:
-  defaultClientArgs:
-    - --l1.ws={{ .Values.global.l1Ws }}
-    - --taikoL1={{ (index .Values .Values.global.network).l1ContractAddresses.taikoL1 }}
-    - --taikoL2={{ (index .Values .Values.global.network).l2ContractAddresses.taikoL2 }}
 
-driver:
-  args:
+clientArgs:
+  common:
+    - --l1.ws={{ .Values.global.endpoints.l1Ws }}
+    - --taikoL1={{ (index .Values .Values.global.network).l1ContractAddresses.taikoL1 }}
+    - --taikoL2={{ (index .Values .Values.global.network).l2ContractAddresses.taikoL2 }} 
+  driver:
     - driver
     - --p2p.sync
     - --p2p.checkPointSyncUrl={{ (index .Values .Values.global.network).driver.checkpointUrl }}
-    - --l1.beacon={{ .Values.global.l1Beacon }}
-    - --l2.ws={{ .Values.global.l2Ws }}
-    - --l2.auth={{ .Values.global.l2Auth }}
+    - --l1.beacon={{ .Values.global.endpoints.l1Beacon }}
+    - --l2.ws={{ .Values.global.endpoints.l2Ws }}
+    - --l2.auth={{ .Values.global.endpoints.l2Auth }}
     - --jwtSecret=/jwtsecret/default
-
-proposer:
-  args:
+  proposer:
     - proposer
-    - --l2.http={{ .Values.global.l2Http }}
+    - --l2.http={{ .Values.global.endpoints.l2Http }}
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
     - --l1.proposerPrivKey=$(PROPOSER_PRIVATE_KEY)
     - --l2.suggestedFeeRecipient={{ (index .Values .Values.global.network).proposer.suggestedFeeRecipient }}
     - --proverEndpoints={{ (index .Values .Values.global.network).proposer.proverEndpoints }}
     - --tierFee.optimistic={{ (index .Values .Values.global.network).proposer.blockProposalFeeGwei }}
     - --tierFee.sgx={{ (index .Values .Values.global.network).proposer.blockProposalFeeGwei }}
-    - --l2.auth={{ .Values.global.l2Auth }}
+    - --l2.auth={{ .Values.global.endpoints.l2Auth }}
     - --jwtSecret=/jwtsecret/default
-
-prover:
-  args:
+  prover:
     - prover
-    - --l1.http={{ .Values.global.l1Http }}
-    - --l2.ws={{ .Values.global.l2Ws }}
-    - --l2.http={{ .Values.global.l2Http }}
+    - --l1.http={{ .Values.global.endpoints.l1Http }}
+    - --l2.ws={{ .Values.global.endpoints.l2Ws }}
+    - --l2.http={{ .Values.global.endpoints.l2Http }}
     - --l1.proverPrivKey=$(PROVER_PRIVATE_KEY)
     - --prover.capacity={{ (index .Values .Values.global.network).prover.capacity }}
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
     - --raiko.host={{ (index .Values .Values.global.network).prover.raikoHost }}
     - --tx.gasLimit={{ (index .Values .Values.global.network).prover.txGasLimit }}
-
-guardian:
-  args:
-    - prover
-    - --mode.contester
-    - --l1.http={{ .Values.global.l1Http }}
-    - --l2.http={{ .Values.global.l2Http }}
-    - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
-    - --l1.proverPrivKey=$(PROVER_PRIVATE_KEY)
-    - --prover.guardianProverHealthCheckServerEndpoint={{ (index .Values .Values.global.network).guardian.healthCheckserver }}
-    - --guardianProverMinority={{ (index .Values .Values.global.network).l1ContractAddresses.guardianProverMinority }}
-    - --guardianProverMajority={{ (index .Values .Values.global.network).l1ContractAddresses.guardianProverMajority }}
-    - --assignmentHookAddress={{ (index .Values .Values.global.network).l1ContractAddresses.assignmentHook }}
-    - --prover.capacity={{ (index .Values .Values.global.network).guardian.capacity }}
-    - --prover.proveUnassignedBlocks={{ (index .Values .Values.global.network).guardian.proveUnassignedBlocks }}
-    - --tx.gasLimit={{ (index .Values .Values.global.network).guardian.gasLimit }}
-    - --prover.l1NodeVersion="{{ (index .Values .Values.global.network).guardian.tag.l1ClClient) }}:{{ (index .Values .Values.global.network).guardian.tag.l1ClTag }}/{{ (index .Values .Values.global.network).guardian.tag.l1ElClient) }}:{{ (index .Values .Values.global.network).guardian.tag.l1ElTag }}"
-    - --prover.l2NodeVersion="driver:{{ (index .Values .Values.global.network).guardian.tag.l2DriverTag }}/taiko-geth:{{ (index .Values .Values.global.network).guardian.tag.l2ElTag }}/guardian:{{ (index .Values .Values.global.network).guardian.tag.l2GuardianTag }}"
 
 hekla:
   image:
@@ -102,21 +81,6 @@ hekla:
     capacity: 1024
     raikoHost: ""
     txGasLimit: "3000000"
-  guardian:
-    healthCheckServer: https://guardian-prover-health-check.hekla.taiko.xyz
-    gasLimit: "2000000"
-    capacity: 1024
-    proveUnassignedBlocks: true
-    tag:
-      # L1 tags
-      l1ElTag: "v1.14.3"
-      l1ClTag: v5.1.3
-      l1ElClient: "go-ethereum"
-      l1ClClient: "lighthouse"
-      # L2 tags
-      l2ElTag: "sha-2bd866e"
-      l2DriverTag: "sha-9a72cf0"
-      l2GuardianTag: "sha-9a72cf0"
 
 mainnet:
   image:
@@ -141,18 +105,3 @@ mainnet:
     capacity: 1024
     raikoHost: ""
     txGasLimit: "3000000"
-  guardian:
-    healthCheckServer: https://guardians-api.mainnet.taiko.xyz
-    gasLimit: "2000000"
-    capacity: 1024
-    proveUnassignedBlocks: true
-    tag:
-      # L1 tags
-      l1ElTag: "v1.14.3"
-      l1ClTag: v5.1.3
-      l1ElClient: "go-ethereum"
-      l1ClClient: "lighthouse"
-      # L2 tags
-      l2ElTag: "v1.3.0"
-      l2DriverTag: "taiko-client-v0.25.0"
-      l2GuardianTag: "taiko-client-v0.25.0"
