@@ -5,11 +5,17 @@ taiko-client:
   global:
     network: "{{ .Values.global.network }}"
     mode: driver
-    endpoints:
-      l1Http: "http://ethereum-node-holesky-execution:8545"
-      l1Ws: "ws://ethereum-node-holesky-execution:8545"
-      l1Beacon: "http://ethereum-node-holesky-beacon:5052"
 
 taiko-geth:
   global:
     network: "{{ .Values.global.network }}"
+
+ethereum-node:
+  enabled: true
+  geth:
+    enabled: true
+  lighthouse:
+    enabled: true
+  global:
+    main:
+      network: holesky
