@@ -5,11 +5,9 @@
 
 ## Start a Taiko holesky node
 
-To start a Taiko node we'll utilize the `ethereum-node` and `taiko-node` charts. First, edit the `ethereum-node` to "holesky".
-
-1. Edit `./charts/ethereum-node/values.yaml`, changing the network to "holesky". Also set `geth.enabled` and `lighthouse.enabled` to "true".
-2. `helm install ethereum-node-holesky ./charts/ethereum-node`
-3. `helm install taiko-node ./charts/taiko-node`
+To start a Taiko full node:
+1. `helm dependency update ./charts/taiko-node`
+2. `helm install taiko-node ./charts/taiko-node`
 
 # Ethereum Helm Charts
 
