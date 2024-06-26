@@ -14,7 +14,7 @@ This is an umbrella chart for running a Taiko node.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../ethereum-node | ethereum-node | 0.0.25 |
+| file://../ethereum-node | ethereum-node | 0.0.26 |
 | file://../taiko-client | taiko-client | 0.1.0 |
 | file://../taiko-geth | taiko-geth | 0.1.0 |
 
