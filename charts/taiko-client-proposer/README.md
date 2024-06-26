@@ -4,6 +4,12 @@
 
 A Helm chart for Kubernetes
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| d1onys1us |  |  |
+
 ## Requirements
 
 | Repository | Name | Version |

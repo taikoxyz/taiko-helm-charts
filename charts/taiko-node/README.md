@@ -4,6 +4,12 @@
 
 This is an umbrella chart for running a Taiko node.
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| d1onys1us |  |  |
+
 ## Requirements
 
 | Repository | Name | Version |
