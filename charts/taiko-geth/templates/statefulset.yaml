@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "taiko-geth.fullname" . }}
+  labels:
+    {{- include "taiko-geth.labels" . | nindent 4 }}
+  annotations:
+    {{- toYaml .Values.annotations | nindent 4 }}
+spec:
+  serviceName: taiko-geth
+  replicas: {{ .Values.global.replicaCount }}
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      {{- include "taiko-geth.selectorLabels" . | nindent 6 }}
+  volumeClaimTemplates:
+  - metadata:
+      name: taiko-data
+    spec:
+      storageClassName: {{ .Values.global.storage.className }}
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: {{ .Values.global.storage.request }}
+  template:
+    metadata:
+      labels:
+        {{- include "taiko-geth.labels" . | nindent 8 }}
+    spec:
+      volumes:
+      - name: jwtsecret
+        secret:
+          secretName: {{ include "taiko-geth.fullname" . }}-jwt
+      containers:
+      - name: taiko-geth
+        image: "{{ (index .Values .Values.global.network).image.repository }}:{{ (index .Values .Values.global.network).image.tag }}"
+        imagePullPolicy: "{{ (index .Values .Values.global.network).image.pullPolicy }}"
+        command:
+        - /bin/sh
+        - -c
+        - |
+          geth \
+            --datadir=/taiko/data \
+            --port={{ .Values.global.ports.p2pPort }} \
+            --http \
+            --http.addr 0.0.0.0 \
+            --http.port {{ .Values.global.ports.httpPort }} \
+            --http.vhosts "*" \
+            --http.corsdomain "*" \
+            --http.api net,eth,web3,txpool,debug,taiko \
+            --ws \
+            --ws.addr 0.0.0.0 \
+            --ws.port {{ .Values.global.ports.wsPort }} \
+            --ws.origins "*" \
+            --ws.api eth,net,web3,txpool,debug,taiko \
+            --metrics \
+            --metrics.port {{ .Values.global.ports.metricsPort }} \
+            --metrics.addr 0.0.0.0 \
+            --cache 4096 \
+            --maxpeers 50 \
+            --syncmode snap \
+            --gcmode archive \
+            --snapshot \
+            --log.rotate \
+            --log.compress \
+            --log.maxsize 10 \
+            --log.maxage 10 \
+            --log.format logfmt \
+            --authrpc.addr 0.0.0.0 \
+            --authrpc.port {{ .Values.global.ports.authPort }} \
+            --authrpc.jwtsecret /jwtsecret/default \
+            --authrpc.vhosts "*" \
+            --discv5 \
+            --allow-insecure-unlock \
+            --networkid={{ (index .Values .Values.global.network).id }} \
+            --nat "extip:$(POD_IP)" \
+            --bootnodes "{{ (index .Values .Values.global.network).bootnodes }}" \
+            --taiko 2>&1
+        ports:
+          - name: ws-rpc
+            containerPort: {{ .Values.global.ports.wsPort }}
+          - name: http-rpc
+            containerPort: {{ .Values.global.ports.httpPort }}
+          - name: p2p-tcp
+            containerPort: {{ .Values.global.ports.p2pPort }}
+            protocol: TCP
+          - name: p2p-udp
+            containerPort: {{ .Values.global.ports.p2pPort }}
+            protocol: UDP
+          - name: auth-rpc
+            containerPort: {{ .Values.global.ports.authPort }}
+          - name: metrics
+            containerPort: {{ .Values.global.ports.metricsPort }}
+        volumeMounts:
+          - name: taiko-data
+            mountPath: /taiko/data
+          - name: jwtsecret
+            mountPath: /jwtsecret
+            readOnly: true
+        resources:
+          requests:
+            cpu: {{ .Values.global.resources.requests.cpu }}
+            memory: {{ .Values.global.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.global.resources.limits.cpu }}
+            memory: {{ .Values.global.resources.limits.memory }}
+        env:
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+        livenessProbe:
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: {{ .Values.global.ports.httpPort }}
