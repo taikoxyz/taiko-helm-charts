@@ -67,3 +67,8 @@ jobs:
           --excluded-charts tracoor-server
           --excluded-charts tracoor-agent
           --excluded-charts xatu-cl-mimicry
+          --excluded-charts taiko-node
+          --excluded-charts taiko-client
+          --excluded-charts taiko-client-proposer
+          --excluded-charts taiko-client-prover
+          --excluded-charts taiko-geth
