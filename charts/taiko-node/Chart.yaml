@@ -3,6 +3,8 @@ name: taiko-node
 description: This is an umbrella chart for running a Taiko node.
 type: application
 version: 0.1.0
+maintainers:
+  - name: d1onys1us
 
 dependencies:
   - name: taiko-geth
