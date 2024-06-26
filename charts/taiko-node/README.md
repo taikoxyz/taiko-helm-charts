@@ -1,0 +1,32 @@
+# taiko-node
+
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+
+This is an umbrella chart for running a Taiko node.
+
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| file://../ethereum-node | ethereum-node | 0.0.25 |
+| file://../taiko-client | taiko-client | 0.1.0 |
+| file://../taiko-geth | taiko-geth | 0.1.0 |
+
+## Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| ethereum-node.enabled | bool | `true` |  |
+| ethereum-node.geth.enabled | bool | `true` |  |
+| ethereum-node.global.main.network | string | `"holesky"` |  |
+| ethereum-node.lighthouse.enabled | bool | `true` |  |
+| global.network | string | `"hekla"` |  |
+| taiko-client.global.mode | string | `"driver"` |  |
+| taiko-client.global.network | string | `"{{ .Values.global.network }}"` |  |
+| taiko-client.global.replicaCount | int | `1` |  |
+| taiko-client.global.resources.limits.cpu | string | `"1000m"` |  |
+| taiko-client.global.resources.limits.memory | string | `"500Mi"` |  |
+| taiko-client.global.resources.requests.cpu | string | `"1000m"` |  |
+| taiko-client.global.resources.requests.memory | string | `"500Mi"` |  |
+| taiko-geth.global.network | string | `"{{ .Values.global.network }}"` |  |
+
