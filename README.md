@@ -1,4 +1,3 @@
-> [!NOTE]
 > This is a fork of [ethereum-helm-charts](https://github.com/ethpandaops/ethereum-helm-charts), with additional helm charts to easily deploy parts of Taiko's stack.
 
 # Taiko usage
