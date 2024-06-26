@@ -9,4 +9,4 @@ dependencies:
   repository: file://../ethereum-node
   version: 0.0.25
 digest: sha256:3114b31592ab3c0b85d1e0a3c27fd507bc3168d07dae20444c760e253aa9b358
-generated: "2024-06-26T13:03:29.094832-04:00"
+generated: "2024-06-26T19:28:10.085129429Z"
