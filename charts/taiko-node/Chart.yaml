@@ -11,7 +11,7 @@ dependencies:
     version: "0.1.0"
     repository: "file://../taiko-geth"
   - name: taiko-client
-    version: "0.1.0"
+    version: "0.1.1"
     repository: "file://../taiko-client"
   - name: ethereum-node
     version: "0.0.25"
