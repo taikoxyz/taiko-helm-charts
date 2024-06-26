@@ -5,7 +5,7 @@ global:
   mode: driver
   endpoints:
     l1Http: "http://{{ .Release.Name }}-execution:8545"
-    l1Ws: "ws://{{ .Release.Name }}-execution:8545"
+    l1Ws: "ws://{{ .Release.Name }}-execution:8546"
     l1Beacon: "http://{{ .Release.Name }}-beacon:5052"
     l2Http: "http://{{ .Release.Name }}-taiko-geth:8545"
     l2Ws: "ws://{{ .Release.Name }}-taiko-geth:8546"
