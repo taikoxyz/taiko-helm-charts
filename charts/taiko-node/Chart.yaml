@@ -14,6 +14,6 @@ dependencies:
     version: "0.1.0"
     repository: "file://../taiko-client"
   - name: ethereum-node
-    version: "0.0.25"
+    version: "0.0.26"
     repository: "file://../ethereum-node"
     condition: ethereum-node.enabled
