@@ -7,6 +7,6 @@ dependencies:
   version: 0.1.0
 - name: ethereum-node
   repository: file://../ethereum-node
-  version: 0.0.26
-digest: sha256:624087c8b99887f7403350eb7c79bbd28c50963979a4758740f97873a326fc32
-generated: "2024-06-26T12:35:36.489224-04:00"
+  version: 0.0.25
+digest: sha256:3114b31592ab3c0b85d1e0a3c27fd507bc3168d07dae20444c760e253aa9b358
+generated: "2024-06-26T13:03:29.094832-04:00"
