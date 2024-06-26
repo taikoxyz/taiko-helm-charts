@@ -2,11 +2,12 @@
 
 # Taiko usage
 
-## Start a Taiko holesky node
+To start a Taiko full node (L1 + L2):
 
-To start a Taiko full node:
-1. `helm dependency update ./charts/taiko-node`
-2. `helm install taiko-node ./charts/taiko-node`
+1. Add taiko-helm-charts repo: `helm repo add taiko-helm-charts https://taikoxyz.github.io/taiko-helm-charts`
+2. Install taiko-node: `helm install taiko-node taiko-helm-charts/taiko-node`
+
+There are also charts for installing a proposer, prover, etc.
 
 # Ethereum Helm Charts
 
