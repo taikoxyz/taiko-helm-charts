@@ -1,0 +1,19 @@
+apiVersion: v2
+name: taiko-node
+description: This is an umbrella chart for running a Taiko node.
+type: application
+version: 0.1.0
+maintainers:
+  - name: d1onys1us
+
+dependencies:
+  - name: taiko-geth
+    version: "0.1.0"
+    repository: "file://../taiko-geth"
+  - name: taiko-client
+    version: "0.1.0"
+    repository: "file://../taiko-client"
+  - name: ethereum-node
+    version: "0.0.25"
+    repository: "file://../ethereum-node"
+    condition: ethereum-node.enabled

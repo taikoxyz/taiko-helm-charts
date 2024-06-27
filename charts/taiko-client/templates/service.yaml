@@ -1,0 +1,13 @@
+{{- if eq .Values.global.mode "prover" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "taiko-client.fullname" . }}
+spec:
+  selector:
+    {{- include "taiko-client.selectorLabels" . | nindent 4 }}
+  ports:
+    - protocol: TCP
+      port: 9876
+      targetPort: 9876
+{{- end }}
