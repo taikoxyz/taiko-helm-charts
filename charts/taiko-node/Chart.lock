@@ -1,0 +1,12 @@
+dependencies:
+- name: taiko-geth
+  repository: file://../taiko-geth
+  version: 0.1.0
+- name: taiko-client
+  repository: file://../taiko-client
+  version: 0.1.0
+- name: ethereum-node
+  repository: file://../ethereum-node
+  version: 0.0.25
+digest: sha256:3114b31592ab3c0b85d1e0a3c27fd507bc3168d07dae20444c760e253aa9b358
+generated: "2024-06-26T20:54:27.461001-04:00"

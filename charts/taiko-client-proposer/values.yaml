@@ -1,0 +1,34 @@
+taiko-client:
+  global:
+    network: hekla
+    mode: proposer
+    # Change these to the values of the svc in your namespace
+    endpoints:
+      l1Http: "http://ethereum-node-holesky-execution:8545"
+      l1Ws: "ws://ethereum-node-holesky-execution:8545"
+      l1Beacon: "http://ethereum-node-holesky-beacon:5052"
+      l2Http: "http://taiko-node-taiko-geth:8545"
+      l2Ws: "ws://taiko-node-taiko-geth:8546"
+      l2Auth: "http://taiko-node-taiko-geth:8551"
+    # WARN: do not commit these values, using external secrets is recommended
+    secret:
+      jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+      proposerPrivateKey: ""
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 500Mi
+      limits:
+        cpu: 1000m
+        memory: 500Mi
+    replicaCount: 1
+  hekla:
+    proposer:
+      suggestedFeeRecipient: "0x1509F09637A1fB8C3e47e099d50514b9D9Af8157"
+      proverEndpoints: http://taiko-client-prover:9876
+      blockProposalFeeGwei: 1
+  mainnet:
+    proposer:
+      suggestedFeeRecipient: "0x1509F09637A1fB8C3e47e099d50514b9D9Af8157"
+      proverEndpoints: http://taiko-client-prover:9876
+      blockProposalFeeGwei: 1

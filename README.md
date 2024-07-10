@@ -1,3 +1,14 @@
+> This is a fork of [ethereum-helm-charts](https://github.com/ethpandaops/ethereum-helm-charts), with additional helm charts to easily deploy parts of Taiko's stack.
+
+# Taiko usage
+
+To start a Taiko full node (L1 + L2):
+
+1. Add taiko-helm-charts repo: `helm repo add taiko-helm-charts https://taikoxyz.github.io/taiko-helm-charts`
+2. Install taiko-node: `helm install taiko-node taiko-helm-charts/taiko-node`
+
+There are also charts for installing a proposer, prover, etc.
+
 # Ethereum Helm Charts
 
 [![Release Helm Charts](https://github.com/ethpandaops/ethereum-helm-charts/actions/workflows/release.yaml/badge.svg)](https://github.com/ethpandaops/ethereum-helm-charts/actions/workflows/release.yaml)

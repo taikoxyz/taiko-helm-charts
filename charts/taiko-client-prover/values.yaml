@@ -1,0 +1,37 @@
+taiko-client:
+  global:
+    network: hekla
+    mode: prover
+    # Change these to the values of the svc in your namespace
+    endpoints:
+      l1Http: "http://ethereum-node-holesky-execution:8545"
+      l1Ws: "ws://ethereum-node-holesky-execution:8545"
+      l1Beacon: "http://ethereum-node-holesky-beacon:5052"
+      l2Http: "http://taiko-node-taiko-geth:8545"
+      l2Ws: "ws://taiko-node-taiko-geth:8546"
+      l2Auth: "http://taiko-node-taiko-geth:8551"
+    # WARN: do not commit these values, using external secrets is recommended
+    secret:
+      proverPrivateKey: ""
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 500Mi
+      limits:
+        cpu: 1000m
+        memory: 500Mi
+    replicaCount: 1
+  hekla:
+    prover:
+      capacity: 1024
+      raikoHost: ""
+      # Optional args
+      txGasLimit: "3000000"
+      txMinBaseFee: ""
+  mainnet:
+    prover:
+      capacity: 1024
+      raikoHost: ""
+      # Optional args
+      txGasLimit: "3000000"
+      txMinBaseFee: ""
