@@ -4,7 +4,7 @@
 
 To start a Taiko full node (L1 + L2):
 
-1. Add taiko-helm-charts repo: `helm repo add taiko-helm-charts https://taikoxyz.github.io/taiko-helm-charts`
+1. Add taiko-helm-charts repo: `helm repo add taiko-helm-charts https://libreth.github.io/taiko-helm-charts`
 2. Install taiko-node: `helm install taiko-node taiko-helm-charts/taiko-node`
 
 There are also charts for installing a proposer, prover, etc.
