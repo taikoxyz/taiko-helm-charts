@@ -5,7 +5,7 @@
 To start a Taiko full node (L1 + L2):
 
 1. Add taiko-helm-charts repo: `helm repo add taiko-helm-charts https://libreth.github.io/taiko-helm-charts`
-2. Install ethereum-node: `helm install ethereum-node taiko-helm-charts/ethereum-node`
+2. Install ethereum-node: `helm install ethereum-node taiko-helm-charts/ethereum-node` (make sure to set the desired network, and client selections in a `values.yaml`)
 3. Install taiko-node: `helm install taiko-node taiko-helm-charts/taiko-node` (if you don't use the deployment name `ethereum-node` in step 2, make sure to update the `l1Endpoints` in `./charts/taiko-node/values.yaml`)
 
 There are also charts for installing a proposer, prover, etc.
