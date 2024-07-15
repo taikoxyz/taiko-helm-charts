@@ -20,25 +20,6 @@ spec:
       - name: jwtsecret
         secret:
           secretName: {{ include "taiko-client.fullname" . }}-jwt
-      initContainers:
-      - name: check-ethereum-sync
-        image: appropriate/curl
-        command:
-          - /bin/sh
-          - -c
-          - |
-            while true; do
-              SYNC_STATUS=$(curl -s -X POST -H "Content-Type: application/json" \
-              --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' \
-              "{{ tpl .Values.global.endpoints.l1Http . }}" | grep -o '"result":false')
-              if [ "$SYNC_STATUS" = '"result":false' ]; then
-                echo "Ethereum node is fully synced."
-                break
-              else
-                echo "Ethereum node is still syncing..."
-                sleep 10
-              fi
-            done
       containers:
       - name: {{ printf "taiko-client-%s" .Values.global.mode }}
         image: "{{ (index .Values .Values.global.network).image.repository }}:{{ (index .Values .Values.global.network).image.tag }}"

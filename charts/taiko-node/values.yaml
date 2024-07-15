@@ -22,6 +22,18 @@ ethereum-node:
   enabled: true
   geth:
     enabled: true
+    # Adding readiness probe for taiko-client driver
+    readinessProbe:
+      initialDelaySeconds: 30
+      periodSeconds: 5
+      failureThreshold: 3
+      exec:
+        command:
+        - /bin/sh
+        - -c
+        - "geth attach --datadir=/el/data --exec 'eth && eth.blockNumber!=0 && !eth.syncing' | grep true"
+    # Overriding default ws port due to duplicate port warning
+    wsPort: 8546
   lighthouse:
     enabled: true
   global:
