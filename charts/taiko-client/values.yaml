@@ -3,10 +3,11 @@ global:
   network: hekla
   # options: [driver, proposer, prover]
   mode: driver
-  endpoints:
-    l1Http: "http://{{ .Release.Name }}-execution:8545"
-    l1Ws: "ws://{{ .Release.Name }}-execution:8546"
-    l1Beacon: "http://{{ .Release.Name }}-beacon:5052"
+  l1Endpoints:
+    l1Http: "http://ethereum-node-execution:8545"
+    l1Ws: "ws://ethereum-node-execution:8546"
+    l1Beacon: "http://ethereum-node-beacon:5052"
+  l2Endpoints:
     l2Http: "http://{{ .Release.Name }}-taiko-geth:8545"
     l2Ws: "ws://{{ .Release.Name }}-taiko-geth:8546"
     l2Auth: "http://{{ .Release.Name }}-taiko-geth:8551"
@@ -24,21 +25,21 @@ global:
 
 clientArgs:
   common:
-    - --l1.ws={{ tpl .Values.global.endpoints.l1Ws . }}
+    - --l1.ws={{ tpl .Values.global.l1Endpoints.l1Ws . }}
     - --taikoL1={{ (index .Values .Values.global.network).l1ContractAddresses.taikoL1 }}
     - --taikoL2={{ (index .Values .Values.global.network).l2ContractAddresses.taikoL2 }}
   driver:
     - driver
     - --p2p.sync
     - --p2p.checkPointSyncUrl={{ (index .Values .Values.global.network).driver.checkpointUrl }}
-    - --l1.beacon={{ tpl .Values.global.endpoints.l1Beacon . }}
-    - --l2.ws={{ tpl .Values.global.endpoints.l2Ws . }}
-    - --l2.auth={{ tpl .Values.global.endpoints.l2Auth . }}
+    - --l1.beacon={{ tpl .Values.global.l1Endpoints.l1Beacon . }}
+    - --l2.ws={{ tpl .Values.global.l2Endpoints.l2Ws . }}
+    - --l2.auth={{ tpl .Values.global.l2Endpoints.l2Auth . }}
     - --jwtSecret=/jwtsecret/default
   proposer:
     - proposer
-    - --l2.http={{ tpl .Values.global.endpoints.l2Http . }}
-    - --l2.auth={{ tpl .Values.global.endpoints.l2Auth . }}
+    - --l2.http={{ tpl .Values.global.l2Endpoints.l2Http . }}
+    - --l2.auth={{ tpl .Values.global.l2Endpoints.l2Auth . }}
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
     - --l1.proposerPrivKey=$(PROPOSER_PRIVATE_KEY)
     - --l2.suggestedFeeRecipient={{ (index .Values .Values.global.network).proposer.suggestedFeeRecipient }}
@@ -48,9 +49,9 @@ clientArgs:
     - --jwtSecret=/jwtsecret/default
   prover:
     - prover
-    - --l1.http={{ tpl .Values.global.endpoints.l1Http . }}
-    - --l2.ws={{ tpl .Values.global.endpoints.l2Ws . }}
-    - --l2.http={{ tpl .Values.global.endpoints.l2Http . }}
+    - --l1.http={{ tpl .Values.global.l1Endpoints.l1Http . }}
+    - --l2.ws={{ tpl .Values.global.l2Endpoints.l2Ws . }}
+    - --l2.http={{ tpl .Values.global.l2Endpoints.l2Http . }}
     - --l1.proverPrivKey=$(PROVER_PRIVATE_KEY)
     - --prover.capacity={{ (index .Values .Values.global.network).prover.capacity }}
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}

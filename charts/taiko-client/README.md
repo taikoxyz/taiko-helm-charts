@@ -1,6 +1,6 @@
 # taiko-client
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -14,19 +14,19 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| clientArgs.common[0] | string | `"--l1.ws={{ tpl .Values.global.endpoints.l1Ws . }}"` |  |
+| clientArgs.common[0] | string | `"--l1.ws={{ tpl .Values.global.l1Endpoints.l1Ws . }}"` |  |
 | clientArgs.common[1] | string | `"--taikoL1={{ (index .Values .Values.global.network).l1ContractAddresses.taikoL1 }}"` |  |
 | clientArgs.common[2] | string | `"--taikoL2={{ (index .Values .Values.global.network).l2ContractAddresses.taikoL2 }}"` |  |
 | clientArgs.driver[0] | string | `"driver"` |  |
 | clientArgs.driver[1] | string | `"--p2p.sync"` |  |
 | clientArgs.driver[2] | string | `"--p2p.checkPointSyncUrl={{ (index .Values .Values.global.network).driver.checkpointUrl }}"` |  |
-| clientArgs.driver[3] | string | `"--l1.beacon={{ tpl .Values.global.endpoints.l1Beacon . }}"` |  |
-| clientArgs.driver[4] | string | `"--l2.ws={{ tpl .Values.global.endpoints.l2Ws . }}"` |  |
-| clientArgs.driver[5] | string | `"--l2.auth={{ tpl .Values.global.endpoints.l2Auth . }}"` |  |
+| clientArgs.driver[3] | string | `"--l1.beacon={{ tpl .Values.global.l1Endpoints.l1Beacon . }}"` |  |
+| clientArgs.driver[4] | string | `"--l2.ws={{ tpl .Values.global.l2Endpoints.l2Ws . }}"` |  |
+| clientArgs.driver[5] | string | `"--l2.auth={{ tpl .Values.global.l2Endpoints.l2Auth . }}"` |  |
 | clientArgs.driver[6] | string | `"--jwtSecret=/jwtsecret/default"` |  |
 | clientArgs.proposer[0] | string | `"proposer"` |  |
-| clientArgs.proposer[1] | string | `"--l2.http={{ tpl .Values.global.endpoints.l2Http . }}"` |  |
-| clientArgs.proposer[2] | string | `"--l2.auth={{ tpl .Values.global.endpoints.l2Auth . }}"` |  |
+| clientArgs.proposer[1] | string | `"--l2.http={{ tpl .Values.global.l2Endpoints.l2Http . }}"` |  |
+| clientArgs.proposer[2] | string | `"--l2.auth={{ tpl .Values.global.l2Endpoints.l2Auth . }}"` |  |
 | clientArgs.proposer[3] | string | `"--taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}"` |  |
 | clientArgs.proposer[4] | string | `"--l1.proposerPrivKey=$(PROPOSER_PRIVATE_KEY)"` |  |
 | clientArgs.proposer[5] | string | `"--l2.suggestedFeeRecipient={{ (index .Values .Values.global.network).proposer.suggestedFeeRecipient }}"` |  |
@@ -35,21 +35,21 @@ A Helm chart for Kubernetes
 | clientArgs.proposer[8] | string | `"--tierFee.sgx={{ (index .Values .Values.global.network).proposer.blockProposalFeeGwei }}"` |  |
 | clientArgs.proposer[9] | string | `"--jwtSecret=/jwtsecret/default"` |  |
 | clientArgs.prover[0] | string | `"prover"` |  |
-| clientArgs.prover[1] | string | `"--l1.http={{ tpl .Values.global.endpoints.l1Http . }}"` |  |
-| clientArgs.prover[2] | string | `"--l2.ws={{ tpl .Values.global.endpoints.l2Ws . }}"` |  |
-| clientArgs.prover[3] | string | `"--l2.http={{ tpl .Values.global.endpoints.l2Http . }}"` |  |
+| clientArgs.prover[1] | string | `"--l1.http={{ tpl .Values.global.l1Endpoints.l1Http . }}"` |  |
+| clientArgs.prover[2] | string | `"--l2.ws={{ tpl .Values.global.l2Endpoints.l2Ws . }}"` |  |
+| clientArgs.prover[3] | string | `"--l2.http={{ tpl .Values.global.l2Endpoints.l2Http . }}"` |  |
 | clientArgs.prover[4] | string | `"--l1.proverPrivKey=$(PROVER_PRIVATE_KEY)"` |  |
 | clientArgs.prover[5] | string | `"--prover.capacity={{ (index .Values .Values.global.network).prover.capacity }}"` |  |
 | clientArgs.prover[6] | string | `"--taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}"` |  |
 | clientArgs.prover[7] | string | `"--raiko.host={{ (index .Values .Values.global.network).prover.raikoHost }}"` |  |
 | clientArgs.prover[8] | string | `"--tx.gasLimit={{ (index .Values .Values.global.network).prover.txGasLimit }}"` |  |
 | clientArgs.prover[9] | string | `"--tx.minBaseFee={{ (index .Values .Values.global.network).prover.txMinBaseFee }}"` |  |
-| global.endpoints.l1Beacon | string | `"http://{{ .Release.Name }}-beacon:5052"` |  |
-| global.endpoints.l1Http | string | `"http://{{ .Release.Name }}-execution:8545"` |  |
-| global.endpoints.l1Ws | string | `"ws://{{ .Release.Name }}-execution:8546"` |  |
-| global.endpoints.l2Auth | string | `"http://{{ .Release.Name }}-taiko-geth:8551"` |  |
-| global.endpoints.l2Http | string | `"http://{{ .Release.Name }}-taiko-geth:8545"` |  |
-| global.endpoints.l2Ws | string | `"ws://{{ .Release.Name }}-taiko-geth:8546"` |  |
+| global.l1Endpoints.l1Beacon | string | `"http://ethereum-node-beacon:5052"` |  |
+| global.l1Endpoints.l1Http | string | `"http://ethereum-node-execution:8545"` |  |
+| global.l1Endpoints.l1Ws | string | `"ws://ethereum-node-execution:8546"` |  |
+| global.l2Endpoints.l2Auth | string | `"http://{{ .Release.Name }}-taiko-geth:8551"` |  |
+| global.l2Endpoints.l2Http | string | `"http://{{ .Release.Name }}-taiko-geth:8545"` |  |
+| global.l2Endpoints.l2Ws | string | `"ws://{{ .Release.Name }}-taiko-geth:8546"` |  |
 | global.mode | string | `"driver"` |  |
 | global.network | string | `"hekla"` |  |
 | global.replicaCount | int | `1` |  |

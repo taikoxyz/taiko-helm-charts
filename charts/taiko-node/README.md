@@ -1,6 +1,6 @@
 # taiko-node
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This is an umbrella chart for running a Taiko node.
 
@@ -14,26 +14,17 @@ This is an umbrella chart for running a Taiko node.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../ethereum-node | ethereum-node | 0.0.25 |
-| file://../taiko-client | taiko-client | 0.1.1 |
+| file://../taiko-client | taiko-client | 0.1.2 |
 | file://../taiko-geth | taiko-geth | 0.1.0 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| ethereum-node.enabled | bool | `true` |  |
-| ethereum-node.geth.enabled | bool | `true` |  |
-| ethereum-node.geth.readinessProbe.exec.command[0] | string | `"/bin/sh"` |  |
-| ethereum-node.geth.readinessProbe.exec.command[1] | string | `"-c"` |  |
-| ethereum-node.geth.readinessProbe.exec.command[2] | string | `"geth attach --datadir=/el/data --exec 'eth && eth.blockNumber!=0 && !eth.syncing' | grep true"` |  |
-| ethereum-node.geth.readinessProbe.failureThreshold | int | `3` |  |
-| ethereum-node.geth.readinessProbe.initialDelaySeconds | int | `30` |  |
-| ethereum-node.geth.readinessProbe.periodSeconds | int | `5` |  |
-| ethereum-node.geth.wsPort | int | `8546` |  |
-| ethereum-node.global.main.network | string | `"holesky"` |  |
-| ethereum-node.lighthouse.enabled | bool | `true` |  |
 | global.network | string | `"hekla"` |  |
+| taiko-client.global.l1Endpoints.l1Beacon | string | `"http://ethereum-node-beacon:5052"` |  |
+| taiko-client.global.l1Endpoints.l1Http | string | `"http://ethereum-node-execution:8545"` |  |
+| taiko-client.global.l1Endpoints.l1Ws | string | `"ws://ethereum-node-execution:8546"` |  |
 | taiko-client.global.mode | string | `"driver"` |  |
 | taiko-client.global.network | string | `"{{ .Values.global.network }}"` |  |
 | taiko-client.global.replicaCount | int | `1` |  |
