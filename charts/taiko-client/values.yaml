@@ -1,7 +1,7 @@
 global:
   # options: [hekla, mainnet]
   network: hekla
-  # options: [driver, proposer, prover]
+  # options: [driver, proposer, prover, guardian]
   mode: driver
   l1Endpoints:
     l1Http: "http://ethereum-node-execution:8545"
@@ -43,9 +43,9 @@ clientArgs:
     - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
     - --l1.proposerPrivKey=$(PROPOSER_PRIVATE_KEY)
     - --l2.suggestedFeeRecipient={{ (index .Values .Values.global.network).proposer.suggestedFeeRecipient }}
-    - --proverEndpoints={{ (index .Values .Values.global.network).proposer.proverEndpoints }}
-    - --tierFee.optimistic={{ (index .Values .Values.global.network).proposer.blockProposalFeeGwei }}
-    - --tierFee.sgx={{ (index .Values .Values.global.network).proposer.blockProposalFeeGwei }}
+    - --tx.gasLimit={{ (index .Values .Values.global.network).proposer.txGasLimit }}
+    - --proverSet={{ (index .Values .Values.global.network).proposer.proverSetAddress }}
+    - --l1.blobAllowed={{ (index .Values .Values.global.network).proposer.blobAllowed }}
     - --jwtSecret=/jwtsecret/default
   prover:
     - prover
@@ -58,18 +58,32 @@ clientArgs:
     - --raiko.host={{ (index .Values .Values.global.network).prover.raikoHost }}
     - --tx.gasLimit={{ (index .Values .Values.global.network).prover.txGasLimit }}
     - --tx.minBaseFee={{ (index .Values .Values.global.network).prover.txMinBaseFee }}
+    - --proverSet={{ (index .Values .Values.global.network).prover.proverSetAddress }}
+  guardian:
+    - prover
+    - --mode.contester
+    - --l1.proverPrivKey=$(GUARDIAN_PRIVATE_KEY)
+    - --l1.http={{ tpl .Values.global.l1Endpoints.l1Http . }}
+    - --l2.ws={{ tpl .Values.global.l2Endpoints.l2Ws . }}
+    - --l2.http={{ tpl .Values.global.l2Endpoints.l2Http . }}
+    - --prover.guardianProverHealthCheckServerEndpoint={{ (index .Values .Values.global.network).guardian.healthCheckServer }}
+    - --taikoToken={{ (index .Values .Values.global.network).l1ContractAddresses.taikoToken }}
+    - --guardianProverMinority={{ (index .Values .Values.global.network).guardian.contractAddresses.guardianProverMinority }}
+    - --guardianProverMajority={{ (index .Values .Values.global.network).guardian.contractAddresses.guardianProverMajority }}
+    - --prover.capacity={{ (index .Values .Values.global.network).guardian.capacity }}
+    - --prover.proveUnassignedBlocks
+    - --tx.gasLimit={{ (index .Values .Values.global.network).guardian.txGasLimit }}
+    - --prover.l1NodeVersion="{{ (index .Values .Values.global.network).guardian.l1NodeInfo }}"
+    - --prover.l2NodeVersion="driver:{{ (index .Values .Values.global.network).image.tag }}/taiko-geth:{{ (index .Values .Values.global.network).guardian.taikoGethVersion }}/guardian:{{ (index .Values .Values.global.network).image.tag }}
 
 hekla:
   image:
-    repository: us-docker.pkg.dev/evmchain/hekla/taiko-client
-    tag: sha-f5b09d4
+    repository: us-docker.pkg.dev/evmchain/images/taiko-client
+    tag: taiko-client-v0.29.0
     pullPolicy: IfNotPresent
   l1ContractAddresses:
     taikoL1: "0x79C9109b764609df928d16fC4a91e9081F7e87DB"
     taikoToken: "0x6490E12d480549D333499236fF2Ba6676C296011"
-    guardianProverMinority: "0x31d4d27da5c299d4b6CE19c869B8891C0002795d"
-    guardianProverMajority: "0x92F195a8702da2104aE8E3E10779176E7C35d6BC"
-    assignmentHook: "0x9e640a6aadf4f664CF467B795c31332f44AcBe6c"
   l2ContractAddresses:
     taikoL2: "0x1670090000000000000000000000000000010001"
   driver:
@@ -78,14 +92,11 @@ hekla:
 mainnet:
   image:
     repository: us-docker.pkg.dev/evmchain/images/taiko-client
-    tag: taiko-client-v0.26.0
+    tag: taiko-client-v0.29.0
     pullPolicy: IfNotPresent
   l1ContractAddresses:
     taikoL1: "0x06a9Ab27c7e2255df1815E6CC0168d7755Feb19a"
     taikoToken: "0x10dea67478c5F8C5E2D90e5E9B26dBe60c54d800"
-    guardianProverMinority: "0x579A8d63a2Db646284CBFE31FE5082c9989E985c"
-    guardianProverMajority: "0xE3D777143Ea25A6E031d1e921F396750885f43aC"
-    assignmentHook: "0x537a2f0D3a5879b41BCb5A2afE2EA5c4961796F6"
   l2ContractAddresses:
     taikoL2: "0x1670000000000000000000000000000000010001"
   driver:

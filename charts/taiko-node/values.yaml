@@ -14,9 +14,9 @@ taiko-client:
         memory: 500Mi
     replicaCount: 1
     l1Endpoints:
-      l1Http: "http://ethereum-node-execution:8545"
-      l1Ws: "ws://ethereum-node-execution:8546"
-      l1Beacon: "http://ethereum-node-beacon:5052"
+      l1Http: "http://ethereum-node-holesky-execution:8545"
+      l1Ws: "ws://ethereum-node-holesky-execution:8545"
+      l1Beacon: "http://ethereum-node-holesky-beacon:5052"
 
 taiko-geth:
   global:

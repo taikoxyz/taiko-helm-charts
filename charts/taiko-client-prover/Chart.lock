@@ -1,6 +1,6 @@
 dependencies:
 - name: taiko-client
   repository: file://../taiko-client
-  version: 0.1.0
-digest: sha256:b1ee5d200d7b27969252c9480c700768d84e230f82db8e9a9f3d2adcb0c7a05c
-generated: "2024-06-26T20:54:22.993329-04:00"
+  version: 0.1.3
+digest: sha256:b82539a0c303c84b07c9bae85812247213cbd1146b088822d802cb7ab7cf72c9
+generated: "2024-07-18T09:32:39.175755045Z"

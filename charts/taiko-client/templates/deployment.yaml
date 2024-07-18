@@ -40,6 +40,14 @@ spec:
                 name: {{ include "taiko-client.fullname" . }}-prover-private-key
                 key: default
         {{- end }}
+        {{- if eq .Values.global.mode "guardian" }}
+        env:
+          - name: GUARDIAN_PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "taiko-client.fullname" . }}-guardian-private-key
+                key: default
+        {{- end }}
         volumeMounts:
           - name: jwtsecret
             mountPath: /jwtsecret

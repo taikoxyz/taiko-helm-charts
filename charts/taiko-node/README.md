@@ -1,6 +1,6 @@
 # taiko-node
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This is an umbrella chart for running a Taiko node.
 
@@ -14,17 +14,17 @@ This is an umbrella chart for running a Taiko node.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../taiko-client | taiko-client | 0.1.2 |
-| file://../taiko-geth | taiko-geth | 0.1.0 |
+| file://../taiko-client | taiko-client | 0.1.3 |
+| file://../taiko-geth | taiko-geth | 0.1.1 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.network | string | `"hekla"` |  |
-| taiko-client.global.l1Endpoints.l1Beacon | string | `"http://ethereum-node-beacon:5052"` |  |
-| taiko-client.global.l1Endpoints.l1Http | string | `"http://ethereum-node-execution:8545"` |  |
-| taiko-client.global.l1Endpoints.l1Ws | string | `"ws://ethereum-node-execution:8546"` |  |
+| taiko-client.global.l1Endpoints.l1Beacon | string | `"http://ethereum-node-holesky-beacon:5052"` |  |
+| taiko-client.global.l1Endpoints.l1Http | string | `"http://ethereum-node-holesky-execution:8545"` |  |
+| taiko-client.global.l1Endpoints.l1Ws | string | `"ws://ethereum-node-holesky-execution:8545"` |  |
 | taiko-client.global.mode | string | `"driver"` |  |
 | taiko-client.global.network | string | `"{{ .Values.global.network }}"` |  |
 | taiko-client.global.replicaCount | int | `1` |  |

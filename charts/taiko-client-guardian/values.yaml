@@ -1,7 +1,7 @@
 taiko-client:
   global:
     network: hekla
-    mode: prover
+    mode: guardian
     # Change these to the values of the svc in your namespace
     l1Endpoints:
       l1Http: "http://ethereum-node-holesky-execution:8545"
@@ -13,7 +13,7 @@ taiko-client:
       l2Auth: "http://taiko-node-taiko-geth:8551"
     # WARN: do not commit these values, using external secrets is recommended
     secret:
-      proverPrivateKey: ""
+      guardianPrivateKey: ""
     resources:
       requests:
         cpu: 1000m
@@ -23,18 +23,22 @@ taiko-client:
         memory: 500Mi
     replicaCount: 1
   hekla:
-    prover:
+    guardian:
       capacity: 1024
-      raikoHost: ""
-      # Optional args
-      proverSetAddress: ""
+      healthCheckServer: https://guardian-prover-health-check.hekla.taiko.xyz
+      contractAddresses:
+        guardianProverMinority: "0x31d4d27da5c299d4b6CE19c869B8891C0002795d"
+        guardianProverMajority: "0x92F195a8702da2104aE8E3E10779176E7C35d6BC"
       txGasLimit: "3000000"
-      txMinBaseFee: ""
+      taikoGethVersion: v1.5.0
+      l1NodeInfo: "lighthouse:latest/go-ethereum:stable"
   mainnet:
-    prover:
+    guardian:
       capacity: 1024
-      raikoHost: ""
-      # Optional args
-      proverSetAddress: ""
+      healthCheckServer: https://guardians-api.mainnet.taiko.xyz
+      contractAddresses:
+        guardianProverMinority: "0x579A8d63a2Db646284CBFE31FE5082c9989E985c"
+        guardianProverMajority: "0xE3D777143Ea25A6E031d1e921F396750885f43aC"
       txGasLimit: "3000000"
-      txMinBaseFee: ""
+      taikoGethVersion: v1.5.0
+      l1NodeInfo: "lighthouse:latest/go-ethereum:stable"

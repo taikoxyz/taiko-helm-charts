@@ -1,6 +1,6 @@
 # taiko-client-prover
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -14,18 +14,18 @@ A Helm chart for Kubernetes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../taiko-client | taiko-client | 0.1.0 |
+| file://../taiko-client | taiko-client | 0.1.3 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| taiko-client.global.endpoints.l1Beacon | string | `"http://ethereum-node-holesky-beacon:5052"` |  |
-| taiko-client.global.endpoints.l1Http | string | `"http://ethereum-node-holesky-execution:8545"` |  |
-| taiko-client.global.endpoints.l1Ws | string | `"ws://ethereum-node-holesky-execution:8545"` |  |
-| taiko-client.global.endpoints.l2Auth | string | `"http://taiko-node-taiko-geth:8551"` |  |
-| taiko-client.global.endpoints.l2Http | string | `"http://taiko-node-taiko-geth:8545"` |  |
-| taiko-client.global.endpoints.l2Ws | string | `"ws://taiko-node-taiko-geth:8546"` |  |
+| taiko-client.global.l1Endpoints.l1Beacon | string | `"http://ethereum-node-holesky-beacon:5052"` |  |
+| taiko-client.global.l1Endpoints.l1Http | string | `"http://ethereum-node-holesky-execution:8545"` |  |
+| taiko-client.global.l1Endpoints.l1Ws | string | `"ws://ethereum-node-holesky-execution:8545"` |  |
+| taiko-client.global.l2Endpoints.l2Auth | string | `"http://taiko-node-taiko-geth:8551"` |  |
+| taiko-client.global.l2Endpoints.l2Http | string | `"http://taiko-node-taiko-geth:8545"` |  |
+| taiko-client.global.l2Endpoints.l2Ws | string | `"ws://taiko-node-taiko-geth:8546"` |  |
 | taiko-client.global.mode | string | `"prover"` |  |
 | taiko-client.global.network | string | `"hekla"` |  |
 | taiko-client.global.replicaCount | int | `1` |  |
@@ -35,10 +35,12 @@ A Helm chart for Kubernetes
 | taiko-client.global.resources.requests.memory | string | `"500Mi"` |  |
 | taiko-client.global.secret.proverPrivateKey | string | `""` |  |
 | taiko-client.hekla.prover.capacity | int | `1024` |  |
+| taiko-client.hekla.prover.proverSetAddress | string | `""` |  |
 | taiko-client.hekla.prover.raikoHost | string | `""` |  |
 | taiko-client.hekla.prover.txGasLimit | string | `"3000000"` |  |
 | taiko-client.hekla.prover.txMinBaseFee | string | `""` |  |
 | taiko-client.mainnet.prover.capacity | int | `1024` |  |
+| taiko-client.mainnet.prover.proverSetAddress | string | `""` |  |
 | taiko-client.mainnet.prover.raikoHost | string | `""` |  |
 | taiko-client.mainnet.prover.txGasLimit | string | `"3000000"` |  |
 | taiko-client.mainnet.prover.txMinBaseFee | string | `""` |  |
