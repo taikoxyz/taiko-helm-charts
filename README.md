@@ -1,14 +1,34 @@
-> This is a fork of [ethereum-helm-charts](https://github.com/ethpandaops/ethereum-helm-charts), with additional helm charts to easily deploy parts of Taiko's stack.
+> This is a fork of [ethereum-helm-charts](https://github.com/ethpandaops/ethereum-helm-charts), with additional Helm charts to easily compose parts of Taiko's stack. It is currently **beta software**.
 
 # Taiko usage
 
-To start a Taiko full node (L1 + L2):
+## Prerequisites
 
-1. Add taiko-helm-charts repo: `helm repo add taiko-helm-charts https://libreth.github.io/taiko-helm-charts`
-2. Install ethereum-node: `helm install ethereum-node taiko-helm-charts/ethereum-node` (make sure to set the desired network, and client selections in a `values.yaml`)
-3. Install taiko-node: `helm install taiko-node taiko-helm-charts/taiko-node` (if you don't use the deployment name `ethereum-node` in step 2, make sure to update the `l1Endpoints` in `./charts/taiko-node/values.yaml`)
+- You have installed [Helm](https://helm.sh/docs/intro/install/).
+- You have Kubernetes running ([k3s](https://docs.k3s.io/installation) is recommended).
 
-There are also charts for installing a proposer, prover, etc.
+## Setup the repo
+
+Clone the GitHub repo and enter the `charts` directory:
+
+```sh
+git clone git@github.com:libreth/taiko-helm-charts.git && \
+cd ./taiko-helm-charts/charts
+```
+
+## Start an Ethereum node
+
+1. Configure `./ethereum-node/values.yaml`.
+2. Start the Ethereum node: `helm install <ethereum-node-release-name> ./ethereum-node`.
+
+## Start a Taiko node
+
+1. Configure `./taiko-node/values.yaml`.
+2. Start the Taiko node: `helm install <taiko-node-release-name> ./taiko-node`. 
+
+## Start a Taiko proposer, prover, or guardian prover
+
+You can find similar charts for running a Taiko proposer, prover, or guardian prover. Just configure `values.yaml` to compose with other Helm releases in your cluster.
 
 # Ethereum Helm Charts
 
