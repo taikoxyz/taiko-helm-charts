@@ -19,7 +19,7 @@ This is a fork of [ethereum-helm-charts](https://github.com/ethpandaops/ethereum
 Clone the repo and enter the `charts` directory:
 
 ```sh
-git clone git@github.com:libreth/taiko-helm-charts.git \
+git clone git@github.com:taikoxyz/taiko-helm-charts.git \
 cd ./taiko-helm-charts/charts
 ```
 
