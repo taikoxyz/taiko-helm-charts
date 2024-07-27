@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "taiko-client.fullname" . }}
+  labels:
+    {{- include "taiko-client.labels" . | nindent 4 }}
+  annotations:
+    {{- toYaml .Values.annotations | nindent 4 }}
+spec:
+  replicas: {{ .Values.global.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "taiko-client.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "taiko-client.labels" . | nindent 8 }}
+    spec:
+      volumes:
+      - name: jwtsecret
+        secret:
+          secretName: {{ include "taiko-client.fullname" . }}-jwt
+      containers:
+      - name: {{ printf "taiko-client-%s" .Values.global.mode }}
+        image: "{{ (index .Values .Values.global.network).image.repository }}:{{ (index .Values .Values.global.network).image.tag }}"
+        imagePullPolicy: "{{ (index .Values .Values.global.network).image.pullPolicy }}"
+        {{- if eq .Values.global.mode "proposer" }}
+        env:
+          - name: PROPOSER_PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "taiko-client.fullname" . }}-proposer-private-key
+                key: default
+        {{- end }}
+        {{- if eq .Values.global.mode "prover" }}
+        env:
+          - name: PROVER_PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "taiko-client.fullname" . }}-prover-private-key
+                key: default
+        {{- end }}
+        {{- if eq .Values.global.mode "guardian" }}
+        env:
+          - name: GUARDIAN_PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "taiko-client.fullname" . }}-guardian-private-key
+                key: default
+        {{- end }}
+        volumeMounts:
+          - name: jwtsecret
+            mountPath: /jwtsecret
+            readOnly: true
+        args:
+          # Go through each flag, if it ends in `=` then exclude it (default value)
+          {{- range $arg := (index .Values.clientArgs .Values.global.mode) }}
+            {{- $rendered := tpl $arg $ }}
+            {{- if not (regexMatch "^--.*=$" $rendered) }}
+          - {{ $rendered }}
+            {{- end }}
+          {{- end }}
+          {{- range $arg := .Values.clientArgs.common }}
+          - {{ tpl $arg $ }}
+          {{- end }}
+        resources:
+          requests:
+            cpu: {{ .Values.global.resources.requests.cpu }}
+            memory: {{ .Values.global.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.global.resources.limits.cpu }}
+            memory: {{ .Values.global.resources.limits.memory }}

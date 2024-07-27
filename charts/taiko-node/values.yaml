@@ -1,0 +1,23 @@
+global:
+  network: hekla
+
+taiko-client:
+  global:
+    network: "{{ .Values.global.network }}"
+    mode: driver
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 500Mi
+      limits:
+        cpu: 1000m
+        memory: 500Mi
+    replicaCount: 1
+    l1Endpoints:
+      l1Http: "http://ethereum-node-holesky-execution:8545"
+      l1Ws: "ws://ethereum-node-holesky-execution:8545"
+      l1Beacon: "http://ethereum-node-holesky-beacon:5052"
+
+taiko-geth:
+  global:
+    network: "{{ .Values.global.network }}"

@@ -1,3 +1,42 @@
+# Taiko usage
+
+This is a fork of [ethereum-helm-charts](https://github.com/ethpandaops/ethereum-helm-charts), with additional Helm charts to easily compose parts of Taiko's stack. It is **beta software**. The available charts are:
+
+- [`taiko-client`](charts/taiko-client) - Taiko's multi-purpose client. Can be run as a driver for a Taiko execution client, a proposer, a prover, or a guardian prover.
+- [`taiko-client-proposer`](charts/taiko-client-proposer) - Umbrella chart for taiko-client in proposer mode.
+- [`taiko-client-prover`](charts/taiko-client-prover) - Umbrella chart for taiko-client in prover mode.
+- [`taiko-client-guardian`](charts/taiko-client-guardian) - Umbrella chart for taiko-client in guardian mode.
+- [`taiko-geth`](charts/taiko-geth) - Taiko's execution client built on Geth.
+- [`taiko-node`](charts/taiko-node) - An umbrella chart for a Taiko full node (taiko-client driver + taiko-geth).
+
+## Prerequisites
+
+- You have installed [Helm](https://helm.sh/docs/intro/install/).
+- You have Kubernetes running ([k3s](https://docs.k3s.io/installation) is recommended).
+
+## Setup the repo
+
+Clone the repo and enter the `charts` directory:
+
+```sh
+git clone git@github.com:libreth/taiko-helm-charts.git \
+cd ./taiko-helm-charts/charts
+```
+
+## Start an Ethereum node
+
+1. Configure `./ethereum-node/values.yaml`.
+2. Start the Ethereum node: `helm install <ethereum-node-release-name> ./ethereum-node`.
+
+## Start a Taiko node
+
+1. Configure `./taiko-node/values.yaml`.
+2. Start the Taiko node: `helm install <taiko-node-release-name> ./taiko-node`. 
+
+## Start a Taiko proposer, prover, or guardian prover
+
+You can find similar charts for running a Taiko proposer, prover, or guardian prover. Just configure the `values.yaml` to compose with the other Helm releases in your cluster.
+
 # Ethereum Helm Charts
 
 [![Release Helm Charts](https://github.com/ethpandaops/ethereum-helm-charts/actions/workflows/release.yaml/badge.svg)](https://github.com/ethpandaops/ethereum-helm-charts/actions/workflows/release.yaml)
