@@ -20,14 +20,14 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| taiko-client.global.l1Endpoints.l1Beacon | string | `"http://ethereum-node-holesky-beacon:5052"` |  |
-| taiko-client.global.l1Endpoints.l1Http | string | `"http://ethereum-node-holesky-execution:8545"` |  |
-| taiko-client.global.l1Endpoints.l1Ws | string | `"ws://ethereum-node-holesky-execution:8545"` |  |
+| taiko-client.global.l1Endpoints.l1Beacon | string | `"http://ethereum-node-hoodi-beacon:5052"` |  |
+| taiko-client.global.l1Endpoints.l1Http | string | `"http://ethereum-node-hoodi-execution:8545"` |  |
+| taiko-client.global.l1Endpoints.l1Ws | string | `"ws://ethereum-node-hoodi-execution:8545"` |  |
 | taiko-client.global.l2Endpoints.l2Auth | string | `"http://taiko-node-taiko-geth:8551"` |  |
 | taiko-client.global.l2Endpoints.l2Http | string | `"http://taiko-node-taiko-geth:8545"` |  |
 | taiko-client.global.l2Endpoints.l2Ws | string | `"ws://taiko-node-taiko-geth:8546"` |  |
 | taiko-client.global.mode | string | `"proposer"` |  |
-| taiko-client.global.network | string | `"hekla"` |  |
+| taiko-client.global.network | string | `"hoodi"` |  |
 | taiko-client.global.replicaCount | int | `1` |  |
 | taiko-client.global.resources.limits.cpu | string | `"1000m"` |  |
 | taiko-client.global.resources.limits.memory | string | `"500Mi"` |  |
@@ -35,11 +35,11 @@ A Helm chart for Kubernetes
 | taiko-client.global.resources.requests.memory | string | `"500Mi"` |  |
 | taiko-client.global.secret.jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a"` |  |
 | taiko-client.global.secret.proposerPrivateKey | string | `""` |  |
-| taiko-client.hekla.proposer.blobAllowed | bool | `true` |  |
-| taiko-client.hekla.proposer.blockProposalFeeGwei | int | `1` |  |
-| taiko-client.hekla.proposer.proverSetAddress | string | `""` |  |
-| taiko-client.hekla.proposer.suggestedFeeRecipient | string | `""` |  |
-| taiko-client.hekla.proposer.txGasLimit | string | `"3000000"` |  |
+| taiko-client.hoodi.proposer.blobAllowed | bool | `true` |  |
+| taiko-client.hoodi.proposer.blockProposalFeeGwei | int | `1` |  |
+| taiko-client.hoodi.proposer.proverSetAddress | string | `""` |  |
+| taiko-client.hoodi.proposer.suggestedFeeRecipient | string | `""` |  |
+| taiko-client.hoodi.proposer.txGasLimit | string | `"3000000"` |  |
 | taiko-client.mainnet.proposer.blobAllowed | bool | `true` |  |
 | taiko-client.mainnet.proposer.blockProposalFeeGwei | int | `1` |  |
 | taiko-client.mainnet.proposer.proverSetAddress | string | `""` |  |

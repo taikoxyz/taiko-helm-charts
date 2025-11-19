@@ -23,7 +23,7 @@ The following networks are built into the chart and can be configured by just se
 
 - mainnet
 - sepolia
-- holesky
+- hoodi
 
 ### Consensus layer checkpoint sync
 
@@ -36,7 +36,7 @@ global:
     addresses:
       mainnet: https://mainnet-checkpoint-sync.attestant.io
       sepolia: https://checkpoint-sync.sepolia.ethpandaops.io
-      holesky: https://checkpoint-sync.holesky.ethpandaops.io
+      hoodi: https://checkpoint-sync.hoodi.ethpandaops.io
 ```
 
 ### Choosing the execution and consensus layer software
@@ -63,12 +63,12 @@ Run lighthouse/geth combo on the Sepolia network with metrics-exporter enabled:
 
 ```yaml
 ##
-## $ helm install holesky-lighthouse-geth-0 ethereum-helm-charts/ethereum-node -f values.yaml
+## $ helm install hoodi-lighthouse-geth-0 ethereum-helm-charts/ethereum-node -f values.yaml
 ##
 
 global:
   main:
-    network: holesky
+    network: hoodi
   checkpointSync:
     enabled: true
 

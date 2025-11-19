@@ -9,7 +9,7 @@ global:
     addresses:
       mainnet: https://mainnet-checkpoint-sync.attestant.io
       sepolia: https://checkpoint-sync.sepolia.ethpandaops.io
-      holesky: https://checkpoint-sync.holesky.ethpandaops.io
+      hoodi: https://checkpoint-sync.hoodi.ethpandaops.io
   clientArgs:
     networks:
       mainnet:
@@ -54,33 +54,33 @@ global:
             - --sepolia
           teku:
             - --network=sepolia
-      holesky:
+      hoodi:
         execution:
           besu:
-            - --network=holesky
+            - --network=hoodi
           erigon:
-            - --chain=holesky
+            - --chain=hoodi
           ethereumjs:
-            - --network=holesky
+            - --network=hoodi
           geth:
-            - --holesky
+            - --hoodi
           nethermind:
-            - --config=holesky
+            - --config=hoodi
           reth:
-            - --chain=holesky
+            - --chain=hoodi
         consensus:
           grandine:
-            - --network=holesky
+            - --network=hoodi
           lighthouse:
-            - --network=holesky
+            - --network=hoodi
           lodestar:
-            - --network=holesky
+            - --network=hoodi
           nimbus:
-            - --network=holesky
+            - --network=hoodi
           prysm:
-            - --holesky
+            - --hoodi
           teku:
-            - --network=holesky
+            - --network=hoodi
 
 
 ########################

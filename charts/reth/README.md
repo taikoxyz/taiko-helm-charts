@@ -101,11 +101,11 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 
 # Examples
 
-## Connecting to the holesky test network
+## Connecting to the hoodi test network
 
 ```yaml
 extraArgs:
-  - --chain=holesky
+  - --chain=hoodi
 ```
 
 ## Exposing the P2P service via NodePort

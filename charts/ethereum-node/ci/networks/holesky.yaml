@@ -1,5 +1,5 @@
 global:
   main:
-    network: "holesky"
+    network: "hoodi"
   checkpointSync:
     enabled: true

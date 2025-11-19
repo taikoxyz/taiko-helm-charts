@@ -102,11 +102,11 @@ The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or
 
 # Examples
 
-## Connecting to the holesky test network
+## Connecting to the hoodi test network
 
 ```yaml
 extraArgs:
-  - --network=holesky
+  - --network=hoodi
 ```
 
 ## Exposing the P2P service via NodePort

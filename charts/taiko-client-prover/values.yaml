@@ -1,12 +1,12 @@
 taiko-client:
   global:
-    network: hekla
+    network: hoodi
     mode: prover
     # Change these to the values of the svc in your namespace
     l1Endpoints:
-      l1Http: "http://ethereum-node-holesky-execution:8545"
-      l1Ws: "ws://ethereum-node-holesky-execution:8545"
-      l1Beacon: "http://ethereum-node-holesky-beacon:5052"
+      l1Http: "http://ethereum-node-hoodi-execution:8545"
+      l1Ws: "ws://ethereum-node-hoodi-execution:8545"
+      l1Beacon: "http://ethereum-node-hoodi-beacon:5052"
     l2Endpoints:
       l2Http: "http://taiko-node-taiko-geth:8545"
       l2Ws: "ws://taiko-node-taiko-geth:8546"
@@ -22,7 +22,7 @@ taiko-client:
         cpu: 1000m
         memory: 500Mi
     replicaCount: 1
-  hekla:
+  hoodi:
     prover:
       capacity: 1024
       raikoHost: ""

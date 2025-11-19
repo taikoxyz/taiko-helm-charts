@@ -61,7 +61,7 @@ config:
         #   slots_per_epoch: 32
         #   genesis_time: 1655733600
 
-        # name: "holesky"
+        # name: "hoodi"
         # spec:
         #   seconds_per_slot: 12
         #   slots_per_epoch: 32

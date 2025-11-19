@@ -101,13 +101,13 @@ An open-source Ethereum 2.0 client, written in Rust
 
 # Examples
 
-## Beacon node on the Holesky testnet connected to Holesky via Infura
+## Beacon node on the hoodi testnet connected to hoodi via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=holesky
+  - --network=hoodi
   - --execution-endpoint=<EXECUTION-ENDPOINT>
 ```
 
@@ -128,7 +128,7 @@ p2pNodePort:
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the holesky network that targets a pre-existing `lighthouse-beacon` service:
+This example runs a validator on the hoodi network that targets a pre-existing `lighthouse-beacon` service:
 
 ```yaml
 replicas: 1
@@ -136,7 +136,7 @@ replicas: 1
 mode: validator
 
 extraArgs:
-  - --network=holesky
+  - --network=hoodi
   - --enable-doppelganger-protection
   - --beacon-nodes=http://lighthouse-beacon:5052
 ```

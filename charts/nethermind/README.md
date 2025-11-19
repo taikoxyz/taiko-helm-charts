@@ -100,11 +100,11 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 
 # Examples
 
-## Connecting to the holesky test network
+## Connecting to the hoodi test network
 
 ```yaml
 extraArgs:
-  - --config=holesky
+  - --config=hoodi
   - --Network.MaxActivePeers=60
 ```
 

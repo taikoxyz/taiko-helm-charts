@@ -37,7 +37,7 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 | initContainers | list | `[]` | Additional init containers |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | nameOverride | string | `""` | Overrides the chart's name |
-| network | string | `""` | Set a network name such as mainnet, holesky, sepolia |
+| network | string | `""` | Set a network name such as mainnet, hoodi, sepolia |
 | nodeSelector | object | `{}` | Node selector for pods |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
 | persistence.annotations | object | `{}` | Annotations for volume claim template |

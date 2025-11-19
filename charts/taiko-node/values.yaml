@@ -1,5 +1,5 @@
 global:
-  network: hekla
+  network: hoodi
 
 taiko-client:
   global:
@@ -14,9 +14,9 @@ taiko-client:
         memory: 500Mi
     replicaCount: 1
     l1Endpoints:
-      l1Http: "http://ethereum-node-holesky-execution:8545"
-      l1Ws: "ws://ethereum-node-holesky-execution:8545"
-      l1Beacon: "http://ethereum-node-holesky-beacon:5052"
+      l1Http: "http://ethereum-node-hoodi-execution:8545"
+      l1Ws: "ws://ethereum-node-hoodi-execution:8545"
+      l1Beacon: "http://ethereum-node-hoodi-beacon:5052"
 
 taiko-geth:
   global:

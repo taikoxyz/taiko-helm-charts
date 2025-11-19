@@ -100,11 +100,11 @@ An Ethereum execution layer client designed to be enterprise-friendly for both p
 
 # Examples
 
-## Connecting to the holesky test network
+## Connecting to the hoodi test network
 
 ```yaml
 extraArgs:
-  - --network=holesky
+  - --network=hoodi
   - --max-peers=60
 ```
 

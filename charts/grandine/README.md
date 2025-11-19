@@ -96,13 +96,13 @@ A currently closed source, but hopefully soon to be open-source Ethereum Consens
 
 # Examples
 
-## Beacon node on the Holesky testnet connected to Holesky via Infura
+## Beacon node on the hoodi testnet connected to hoodi via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=holesky
+  - --network=hoodi
   - --ee-endpoint=<EXECUTION-ENDPOINT>
 ```
 
@@ -123,7 +123,7 @@ p2pNodePort:
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the holesky network that targets a pre-existing `grandine-beacon`
+This example runs a validator on the hoodi network that targets a pre-existing `grandine-beacon`
 service by injecting the all-accounts.keystore.json` file via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 

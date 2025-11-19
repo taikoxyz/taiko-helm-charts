@@ -26,14 +26,14 @@ mode: "beacon"
 # -- Extra args for the prysm container
 extraArgs: []
   ## Example for beacon mode
-  #- --holesky
+  #- --hoodi
   #- --execution-endpoint=http://your-eth1-node:8551
-  #- --checkpoint-sync-url=https://holesky.checkpoint-sync.ethdevops.io
-  #- --genesis-beacon-api-url=https://holesky.checkpoint-sync.ethdevops.io
+  #- --checkpoint-sync-url=https://hoodi.checkpoint-sync.ethdevops.io
+  #- --genesis-beacon-api-url=https://hoodi.checkpoint-sync.ethdevops.io
   #
   ##
   ## Example for validator mode
-  #- --holesky
+  #- --hoodi
   #- --enable-doppelganger-protection
   #- --beacon-nodes=http://prysm-beacon:5052
 

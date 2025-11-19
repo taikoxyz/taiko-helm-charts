@@ -107,11 +107,11 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 
 # Examples
 
-## Connecting to the holesky test network
+## Connecting to the hoodi test network
 
 ```yaml
 extraArgs:
-  - --chain=holesky
+  - --chain=hoodi
   - --maxpeers=60
 ```
 

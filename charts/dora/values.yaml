@@ -46,7 +46,7 @@ mevRelays: []
   #  url: "http://mev-relay"
   #  blockLimit: 200
 
-# -- Name of the network ("mainnet", "sepolia", "holesky")
+# -- Name of the network ("mainnet", "sepolia", "hoodi")
 name: mainnet
 
 # -- This can be a url here for example:

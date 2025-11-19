@@ -100,13 +100,13 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 
 # Examples
 
-## Beacon node on the Holesky testnet connected to Holesky via Infura
+## Beacon node on the hoodi testnet connected to hoodi via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=holesky
+  - --network=hoodi
   - --execution.urls=<EXECUTION-ENDPOINT>
 ```
 
@@ -127,7 +127,7 @@ p2pNodePort:
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the holesky network that targets a pre-existing `lodestar-beacon`
+This example runs a validator on the hoodi network that targets a pre-existing `lodestar-beacon`
 service by injecting the all-accounts.keystore.json` file via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 
@@ -185,7 +185,7 @@ initContainers:
             key: NODE_0_KEY_0
 
 extraArgs:
-  - --network=holesky
+  - --network=hoodi
   - --keystoresDir=/data/validator/keys
   - --secretsDir=/data/validator/secrets
   - --server=http://lodestar-beacon:9596

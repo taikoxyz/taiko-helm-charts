@@ -100,11 +100,11 @@ An open-source Ethereum consensus layer client, written in Nim
 
 # Examples
 
-## Beacon node on the Holesky testnet connected to Holesky via Infura
+## Beacon node on the hoodi testnet connected to hoodi via Infura
 
 ```yaml
 extraArgs:
-  - --network=holesky
+  - --network=hoodi
   - --web3-url=<EXECUTION-ENDPOINT>
 ```
 
@@ -126,15 +126,15 @@ p2pNodePort:
 
 ## Validator node
 
-This example runs a validator on the holesky network and injects the keystores via a secret ENV var. You could use a similar
+This example runs a validator on the hoodi network and injects the keystores via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 
 ```yaml
 replicas: 1
 
 extraArgs:
-  - --network=holesky
-  - --web3-url=https://holesky.infura.io/v3/<YOUR_API_SECRET>
+  - --network=hoodi
+  - --web3-url=https://hoodi.infura.io/v3/<YOUR_API_SECRET>
   - --validators-dir=/data/validator/keys
   - --secrets-dir=/data/validator/secrets
 

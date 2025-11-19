@@ -29,7 +29,7 @@ config:
   ntpServer: time.google.com
 
   ethereum:
-    network: mainnet # mainnet, sepolia, holesky
+    network: mainnet # mainnet, sepolia, hoodi
 
   node:
     privateKeyStr: ""

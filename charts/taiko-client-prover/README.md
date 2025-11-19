@@ -20,25 +20,25 @@ A Helm chart for Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| taiko-client.global.l1Endpoints.l1Beacon | string | `"http://ethereum-node-holesky-beacon:5052"` |  |
-| taiko-client.global.l1Endpoints.l1Http | string | `"http://ethereum-node-holesky-execution:8545"` |  |
-| taiko-client.global.l1Endpoints.l1Ws | string | `"ws://ethereum-node-holesky-execution:8545"` |  |
+| taiko-client.global.l1Endpoints.l1Beacon | string | `"http://ethereum-node-hoodi-beacon:5052"` |  |
+| taiko-client.global.l1Endpoints.l1Http | string | `"http://ethereum-node-hoodi-execution:8545"` |  |
+| taiko-client.global.l1Endpoints.l1Ws | string | `"ws://ethereum-node-hoodi-execution:8545"` |  |
 | taiko-client.global.l2Endpoints.l2Auth | string | `"http://taiko-node-taiko-geth:8551"` |  |
 | taiko-client.global.l2Endpoints.l2Http | string | `"http://taiko-node-taiko-geth:8545"` |  |
 | taiko-client.global.l2Endpoints.l2Ws | string | `"ws://taiko-node-taiko-geth:8546"` |  |
 | taiko-client.global.mode | string | `"prover"` |  |
-| taiko-client.global.network | string | `"hekla"` |  |
+| taiko-client.global.network | string | `"hoodi"` |  |
 | taiko-client.global.replicaCount | int | `1` |  |
 | taiko-client.global.resources.limits.cpu | string | `"1000m"` |  |
 | taiko-client.global.resources.limits.memory | string | `"500Mi"` |  |
 | taiko-client.global.resources.requests.cpu | string | `"1000m"` |  |
 | taiko-client.global.resources.requests.memory | string | `"500Mi"` |  |
 | taiko-client.global.secret.proverPrivateKey | string | `""` |  |
-| taiko-client.hekla.prover.capacity | int | `1024` |  |
-| taiko-client.hekla.prover.proverSetAddress | string | `""` |  |
-| taiko-client.hekla.prover.raikoHost | string | `""` |  |
-| taiko-client.hekla.prover.txGasLimit | string | `"3000000"` |  |
-| taiko-client.hekla.prover.txMinBaseFee | string | `""` |  |
+| taiko-client.hoodi.prover.capacity | int | `1024` |  |
+| taiko-client.hoodi.prover.proverSetAddress | string | `""` |  |
+| taiko-client.hoodi.prover.raikoHost | string | `""` |  |
+| taiko-client.hoodi.prover.txGasLimit | string | `"3000000"` |  |
+| taiko-client.hoodi.prover.txMinBaseFee | string | `""` |  |
 | taiko-client.mainnet.prover.capacity | int | `1024` |  |
 | taiko-client.mainnet.prover.proverSetAddress | string | `""` |  |
 | taiko-client.mainnet.prover.raikoHost | string | `""` |  |

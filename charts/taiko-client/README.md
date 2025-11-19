@@ -67,20 +67,20 @@ A Helm chart for Kubernetes
 | global.l2Endpoints.l2Http | string | `"http://{{ .Release.Name }}-taiko-geth:8545"` |  |
 | global.l2Endpoints.l2Ws | string | `"ws://{{ .Release.Name }}-taiko-geth:8546"` |  |
 | global.mode | string | `"driver"` |  |
-| global.network | string | `"hekla"` |  |
+| global.network | string | `"hoodi"` |  |
 | global.replicaCount | int | `1` |  |
 | global.resources.limits.cpu | string | `"1000m"` |  |
 | global.resources.limits.memory | string | `"500Mi"` |  |
 | global.resources.requests.cpu | string | `"1000m"` |  |
 | global.resources.requests.memory | string | `"500Mi"` |  |
 | global.secret.jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a"` |  |
-| hekla.driver.checkpointUrl | string | `"https://rpc.hekla.taiko.xyz"` |  |
-| hekla.image.pullPolicy | string | `"IfNotPresent"` |  |
-| hekla.image.repository | string | `"us-docker.pkg.dev/evmchain/images/taiko-client"` |  |
-| hekla.image.tag | string | `"taiko-client-v0.29.0"` |  |
-| hekla.l1ContractAddresses.taikoL1 | string | `"0x79C9109b764609df928d16fC4a91e9081F7e87DB"` |  |
-| hekla.l1ContractAddresses.taikoToken | string | `"0x6490E12d480549D333499236fF2Ba6676C296011"` |  |
-| hekla.l2ContractAddresses.taikoL2 | string | `"0x1670090000000000000000000000000000010001"` |  |
+| hoodi.driver.checkpointUrl | string | `"https://rpc.hoodi.taiko.xyz"` |  |
+| hoodi.image.pullPolicy | string | `"IfNotPresent"` |  |
+| hoodi.image.repository | string | `"us-docker.pkg.dev/evmchain/images/taiko-client"` |  |
+| hoodi.image.tag | string | `"taiko-client-v0.29.0"` |  |
+| hoodi.l1ContractAddresses.taikoL1 | string | `"0xf6eA848c7d7aC83de84db45Ae28EAbf377fe0eF9"` |  |
+| hoodi.l1ContractAddresses.taikoToken | string | `"0x6490E12d480549D333499236fF2Ba6676C296011"` |  |
+| hoodi.l2ContractAddresses.taikoL2 | string | `"0x1670130000000000000000000000000000010001"` |  |
 | mainnet.driver.checkpointUrl | string | `"https://rpc.mainnet.taiko.xyz"` |  |
 | mainnet.image.pullPolicy | string | `"IfNotPresent"` |  |
 | mainnet.image.repository | string | `"us-docker.pkg.dev/evmchain/images/taiko-client"` |  |

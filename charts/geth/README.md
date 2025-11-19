@@ -102,11 +102,11 @@ Go Ethereum (Geth for short) is one of the original implementations of the Ether
 
 # Examples
 
-## Connecting to the holesky test network
+## Connecting to the hoodi test network
 
 ```yaml
 extraArgs:
-  - --holesky
+  - --hoodi
   - --maxpeers=60
 ```
 
